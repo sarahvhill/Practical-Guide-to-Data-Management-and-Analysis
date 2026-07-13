@@ -1,0 +1,409 @@
+[
+  {
+    "objectID": "version-control/on-going.html",
+    "href": "version-control/on-going.html",
+    "title": "On-going User",
+    "section": "",
+    "text": "There are a few ways to navigate GitHub for on-going use:\n\nCreate a new repository through GitHub – creating a new repository on the cloud\nClone a repository through GitHub Desktop – adding a repository that’s on the cloud onto your local computer\nCreate a new repository through GitHub Desktop – creating a new repository onto your local computer\nAdd an existing R project as new repository\n\n\n\n1. Create a new repository on GitHub\n\nGo to GitHub and make sure you’re logged in\nNear “Repositories”, click New button\nHow to fill this in:\n\nRepository template: No template\nRepository name: desired repository name\nDescription: any information you want fellow users to know\nPrivate\nInitialize this repository with: Add a README file\n\nClick Create repository button\nClick &lt;&gt;Code button\nCopy the HTTPS address\n\n\n\n2. Clone a repository through GitHub Desktop\n\nClick Current repository ▼\nClick Add ▼\nClick Clone a repository…\n\nNow, there are 2 choices… you can either a) search through the existing repositories b) copy and paste the HTTPS address\n\nIn the GitHub.com tab:\n\nselect the existing repository\nchoose local path you’d like to save it to\n\nIn the URL tab:\n\nselect the existing repository\nchoose local path you’d like to save it to\n\n\n\nClick Clone\n\n\n\n3. Create a new repository through GitHub Desktop\n\nClick Current repository ▼\nClick Add ▼\nClick Create a new repository..\n\n\n\nHow to fill this in:\n\nRepository name: desired repository name\nDescription: any information you want fellow users to know\nLocal path: choose path you’d like to save it to\nInitialize this repository with a README\nGit ignore: ▼ scroll and select R\nLicense: None\nClick Create repository button\n\n\nIt will ask if you want to Publish repository, click Publish repository button\n\n\n4. Add an existing R project as a new repository\n\nOpen your .Rproj file\nAt the top of your RStudio window, click “Tools”\nClick “Version Control &gt; Project setup…”\nA new window “Project Options” window will open with “Git/SVN”tab displayed\n\nChange Version control systems (None)▼ to Git\n\n\nA pop up message:\n\nConfirm Restart RStudio\nYou’ll need to restart RStudio in order for this change to take effect. Do you want to do this now?\n\nClick “Yes”\n\nGo to GitHub Desktop\nClick Current repository ▼\nAt the bottom under Other, you’ll notice your project - click it\n\nIt will ask if you want to Publish repository - click Publish repository button\n\nHow to fill this in:\n\nRepository name: desired repository name\nDescription: any information you want fellow users to know\nKeep this code private\nClick Create repository button",
+    "crumbs": [
+      "Introduction",
+      "Version Control",
+      "On-going User"
+    ]
+  },
+  {
+    "objectID": "version-control/first-time.html",
+    "href": "version-control/first-time.html",
+    "title": "First-time User",
+    "section": "",
+    "text": "1. Download:\n\nGit for Windows\nGitHub Desktop\n\n\n2. Create an Account on GitHub\n3. Introduce Yourself to Git (Reference: Chapter 7)\n\nOpen R Studio\nIn the Console, run:\n\ninstall.packages(\"usethis\")  \n\nlibrary(usethis)  \n\nuse_git_config(user.name = \"your user name\", user.email = \"email_address.org\")\n4. Personal Access Token for HTTPS (Reference: Chapter 9)\nThis proves that we are a GitHub user, who’s allowed to do whatever we’re asking it to do.\n\nIn the Console, run:\n\nusethis::create_github_token()\n\nYour GitHub will pop-up. Ensure that “repo”, “user”, and “workflow” are selected and click “Generate token”. Copy the generated PAT.\n\ngitcreds::gitcreds_set()\n\nPaste the generated PAT\n\n5. Connect to GitHub (Reference: Chapter 11)\nMake a Repository on GitHub\n\nGo to GitHub and make sure you’re logged in\nNear “Repositories”, click New button\nHow to fill this in:\n\nRepository template: No template\nRepository name: myrepo\nDescription: Repository for testing my Git/GitHub setup\nPublic\nInitialize this repository with: Add a README file\n\nClick Create repository button\nClick &lt;&gt;Code button\nCopy the HTTPS address\n\nClone the Repo to Your Local Computer\n\nIn the quadrant where the Console is, click Terminal tab\n\nMake sure that you’re not in a specific directory (ideally ~tmp)\n\nIn the Terminal, run:\n\ngit clone paste your https address  \n\ncd myrepo  \n\ngit remote show origin\nShould see something like this:\n~/tmp/myrepo % git remote show origin \n* remote origin   \nFetch URL: https://github.com/jennybc/myrepo.git   \nPush  URL: https://github.com/jennybc/myrepo.git   \nHEAD branch: main   \nRemote branch:     \n  main tracked   \nLocal branch configured for 'git pull':     \n  main merges with remote main   \n  Local ref configured for 'git push':     \n    main pushes to main (up to date)\nMake Local Change, Commit, and Push\n\nIn the Terminal, run:\n\necho \"A line I wrote on my local computer \" &gt;&gt; README.md  \n\ngit status\nShould see something like this:\n~/tmp/myrepo % echo \"A line I wrote on my local computer\" &gt;&gt; README.md  \n~/tmp/myrepo % git status \nOn branch main \nYour branch is up to date with 'origin/main'.  \nChanges not staged for commit:   \n  (use \"git add &lt;file&gt;...\" to update what will be committed)   (use \"git restore &lt;file&gt;...\" to discard changes in working directory)        \n    modified:   README.md  \nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n\nIn the Terminal, run:\n\ngit add README.md  \n\ngit commit -m \"A commit from my local computer\"  \n\ngit push\nShould see something like this:\n~/tmp/myrepo % git add README.md  \n~/tmp/myrepo % git commit -m \"A commit from my local computer\" \n[main e92528c] A commit from my local computer  \n 1 file changed, 1 insertion(+)   \n \n~/tmp/myrepo % git push \nEnumerating objects: 5, done. \nCounting objects: 100% (5/5), done. \nDelta compression using up to 12 threads \nCompressing objects: 100% (2/2), done.\nWriting objects: 100% (3/3), 327 bytes | 327.00 KiB/s, done. Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 \nTo https://github.com/jennybc/myrepo.git    \n  31dcaef..e92528c  main -&gt; main\nYou’ve concluded the set-up with GitHub! Woohoo 🎉 Now you can delete the repository.\n6. Clean up\n\nIn the Terminal, run:\n\ncd..  \nrm -rf myrepo/\n\nGo to GitHub and make sure you’re logged-in\n\nGo to myrepo’s landing page\nClick “Settings”\nScroll down and click “Delete repository”",
+    "crumbs": [
+      "Introduction",
+      "Version Control",
+      "First-time User"
+    ]
+  },
+  {
+    "objectID": "sas-differences/index.html",
+    "href": "sas-differences/index.html",
+    "title": "Differences between SAS and R",
+    "section": "",
+    "text": "Sources for this section\nSAS Intro 2021| OFE\nHow to Get Started with SAS: A Beginner’s Guide to SAS Programming | The Open Bracket\n\nThe majority of this document is based on coding in R. There are substantial differences between R and SAS that can affect how data is structured and the coding practices used. Below are some major differences in how each software handles data, along with key considerations to keep in mind when transitioning between the two.\n\nData Structure\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\nWorks with rectangular datasets\nOne dataset at a time\n\n\nWorks with many data structures\n\nVectors\nLists\nData frames\nTibbles\n\nColumns can contain complex objects (e.g. lists)\n\n\n\n\n\n\nVariable Types\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\nNumeric\n\ndates are special kinds of numeric values\n\nCharacter\n\n\nNumeric (double)\nInteger\nCharacter\nLogical\nDate-time (class based)\n\n\n\n\n\n\nCase Sensitivity\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\nNot case sensitive - can be uppercase, lowercase, or a mixture of both\n\n\nCase sensitive - will read B and b differently\n\n\n\n\n\n\nNaming Conventions\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\nMust start with a letter or underscore ( _ )\nCannot start with a number, contain special characters or blanks\n\n\nMust start with a letter or number\nCannot start with an underscore ( _ ), contain special characters of blanks\n\n\n\n\n\n\nMissing Values\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\nMissing character values are displayed as blanks\nMissing numeric values are displayed as periods ( . )\n\n\nMissing values are displayed as &lt;NA&gt;\n\nSensitive to how the machine reads\n\n\n\n\n\n\n\nStructure of Command\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\n“statements”\nStrung together with semicolon ( ; )\nInclude “run” at the end of statement\nOne or more blanks or special characters used to separate words\nCan begin and end in any column\n\n\n“function”\nWithin a function, strung together with a comma ( , )\nFunctions are strung together with a “pipe” ( %&gt;% or |&gt; )\nNo use of special characters\nOrder matters (e.g. filter, then plot rather than plot, then filter)\nUse of parentheses ( )\n\n\n\n\n\n\nComments\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\n/* text /*\n* text ;\n\n\n# text\n# text ------------ for section headers (Ctrl + Shift + R)\n\n\n\n\n\n\nEnvironment\n\n\n\n\n\n\n\nSAS\nR\n\n\n\n\n\nTemporary library work\nAssign a library libname\n\n\nSet working directory setwd()\nProject-level path .Rproj\n\n\n\n\n\n\nExample Code - Import Dataset\n\n\n\nSAS\n\n\n\n\n\nlibname data_folder 'C:\\Users\\SHILL\\folder1\\subfolder2\\sub-subfolder3\\stat materials\\demo\\fox'  \nACCESS=READONLY;run;  \nproc datasets lib=data_folder;  \nrun;  \nData new_name_data;  \nSet ohl_data;  \nrun;\n\n\n\nR\n\n\n\n\n\nsetwd(\"C:/Users/SHILL/folder1/subfolder2/sub-subfolder3/stat materials/demo/fox\")  \nlibrary(openxlsx)  \nnew_name_data &lt;- read.xlsx(\"data_folder/ohl_data.xlsx\")\n\n\nExample Code - Export Dataset\n\n\n\nSAS\n\n\n\n\n\nProc export  \nData = data_folder.new_name_data  \nOutfile = 'C:\\Users\\SHILL\\folder1\\subfolder2\\sub-subfolder3\\stat materials\\demo\\fox\\new_name_data'  \nDBMS = dlm;  \nRun;\n\n\n\nR\n\n\n\n\n\nlibrary(writexl)  \nwrite_xlsx(new_name_data, \"data_folder/new_name_data.xlsx\")",
+    "crumbs": [
+      "Introduction",
+      "Difference between SAS and R"
+    ]
+  },
+  {
+    "objectID": "navigate-rstudio/index.html",
+    "href": "navigate-rstudio/index.html",
+    "title": "Navigating through RStudio",
+    "section": "",
+    "text": "Download:\n\nR 4.4.3\nRStudio\nRStudio is an integrated development environment (aka visualizes what you’re coding).\nIt is comprised of 4 quadrants:",
+    "crumbs": [
+      "Introduction",
+      "Navigating through RStudio"
+    ]
+  },
+  {
+    "objectID": "navigate-rstudio/index.html#r-script-file-.r",
+    "href": "navigate-rstudio/index.html#r-script-file-.r",
+    "title": "Navigating through RStudio",
+    "section": "1. R Script File (.R)",
+    "text": "1. R Script File (.R)\n\nGreat for straightforward coding workflows and reusable scripts.\nOutput is displayed in the console.\nCommonly used for:\n\nData cleaning\nWrangling\nCreating functions",
+    "crumbs": [
+      "Introduction",
+      "Navigating through RStudio"
+    ]
+  },
+  {
+    "objectID": "navigate-rstudio/index.html#r-notebook-.rmd",
+    "href": "navigate-rstudio/index.html#r-notebook-.rmd",
+    "title": "Navigating through RStudio",
+    "section": "2. R Notebook (.Rmd)",
+    "text": "2. R Notebook (.Rmd)\n\nCombines code, output, and notes in an interactive format.\nOutput is displayed in the script file\nUseful for:\n\nExploratory analysis\nLearning\nDocumenting coding process",
+    "crumbs": [
+      "Introduction",
+      "Navigating through RStudio"
+    ]
+  },
+  {
+    "objectID": "navigate-rstudio/index.html#r-markdown-.rmd",
+    "href": "navigate-rstudio/index.html#r-markdown-.rmd",
+    "title": "Navigating through RStudio",
+    "section": "3. R Markdown (.Rmd)",
+    "text": "3. R Markdown (.Rmd)\n\nDesigned for creating polished, reproducible reports that combines text, code, and output.\nOutput is displayed in the script file\nUsed for:\n\nSharing analyses (like a report or comms)\nGenerating HTML/PDF/Word documents\n\n\nPersonally, I use all three of these file types regularly. This will be discussed in more depth in a later section, but in short, I tend to use R Notebooks when I’m exploring a new dataset or initial analyses. R Scripts are useful for creating reusable lists (such as breakpoints used throughout an analysis), writing functions, or even acting as “scrap paper” where I sketch out the structure of a code chunk. Markdown files are ideal for creating outputs 😎 or generating reports with tables and graphs in PDF or Word format.",
+    "crumbs": [
+      "Introduction",
+      "Navigating through RStudio"
+    ]
+  },
+  {
+    "objectID": "intro-r/packages.html",
+    "href": "intro-r/packages.html",
+    "title": "Packages",
+    "section": "",
+    "text": "Packages expand the vocabulary and/or slang, allowing for R to increase their capabilities.\nBuilding a good library (with packages)\nSome packages are great, some are redundant, and some aren’t worth having on your roster.\n\nFor example: there are at least 3 packages that can import .xlsx files\n\n{openxlsx} - read.xlsx\n{xlsx} - read.xlsx\n{readxl} - read_excel\n\nThere is no right choice but this just highlights that there is different “slang” depending on the package you use and some packages may have other capabilities that you may want.\nBoth {openxlsx} and {readxl} packages have the capabilities of reading (importing) and writing (exporting) .xlsx files. Whereas, {readxl} package only has the reading capabilities but is part of the {Tidyverse} package ecosystem. This means that if you install {tidyverse} (which is HIGHLY recommended) - it will automatically install all other packages within their ecosystem (including {readxl} ).\n\nInstalling a Package\nThere are 2 main ways you can install a new package:\n1. Code in Console\ninstall.packages(\"tidyverse\")\n2. Navigate through RStudio interface\n\nIn the bottom right quadrant, click Packages tab\nClick Install packages\nHow to fill this in:\n\nInstall from: Respository CRAN\nPackages: tidyverse\nInstall to Libraries: C:/Program Files/R/R-4.4.3/library [default]\nInstall dependencies\n\n\n\n\nLoading a Package\nThere are 2 main ways you can load a package:\n1. Code in Console or Script file\n\nlibrary(tidyverse)\n\n2. Navigate through RStudio interface\n\nIn the bottom right quadrant, click Packages tab\nEither scroll through the system library or type package in the 🔍search box\nClick ☐ for it to appear like",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R",
+      "Packages"
+    ]
+  },
+  {
+    "objectID": "intro-r/index.html",
+    "href": "intro-r/index.html",
+    "title": "Introduction to R",
+    "section": "",
+    "text": "R is a programming language that is known for statistical computing and data visualization. Although, it has a wide range of capabilities including (but not limited to):\n\nPresentations (.pptx)\nReproducible reports (.html, .docx, .pdf)\nMicrobial analysis (including genomics)\nDashboards\n\nThis section will go through:\n\nWhat are packages and how do we use them\nHow to Import a dataset\nWays to explore your data\nHow to manipulate your data\nHow to export a dataset\n\n\n\n\nPractice alongside the code\n\n\nIf you’d like to follow along, try running each code chunk yourself and experiment with modifying the value to see how the output changes - download the data below!\nP.S if you haven’t already - load tidyverse (we’ll need it)\n\n\n📥 Download Data",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R"
+    ]
+  },
+  {
+    "objectID": "intro-r/export.html",
+    "href": "intro-r/export.html",
+    "title": "Export dataset",
+    "section": "",
+    "text": "xlsx\n\nlibrary(writexl)  \n\nwrite_xlsx(add_rows_data, \"data/clean_hockey_data.xlsx\") \n\n\n\ncsv\n\nwrite.csv(add_rows_data, \"data/clean_hockey_data.csv\")\n\n\n\nR objects\nI want to bring attention to saving R objects, as they can be incredibly useful when working on long-term projects. Saving data as an .xlsx or .csv file can cause you to lose important information from your analysis workflow, such as variable types and other object attributes. Rather than re-running your entire cleaning and wrangling script every time you return to a project, you can save your current progress as an R object and quickly load it back into your environment later.\n\nSave an R object\n\n\nsave(add_rows_data, file = \"data/clean_hockey_data.Rds\")\n\n\nSave multiple R objects\n\n\nsave(add_columns_data, add_rows_data, data, file = \"data/datafiles.RData\")\n\n\nSave the entire workspace\n\n\nsave.image(file = \"data/work_220526.RData\")\n\nIn all 3 instances, you can load() the file by name and continue your coding adventures from where you last left things rather than starting from the beginning.\n\nload(\"data/clean_hockey_data.Rds\")",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R",
+      "Export dataset"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Practical Guide to Data Management and Analysis",
+    "section": "",
+    "text": "We all have our own ways of managing data and running analyses, and that diversity is part of what makes our team strong. This guide is not meant to suggest that any one method is the “right” way. Rather, it is a collection of practices I’ve found helpful over the years, both as a way to document what I’ve learned and to hold myself accountable to clear, consistent workflows.\nIn this document, you’ll find practical tips for using statistical software efficiently, avoiding common coding errors, and building workflows that are reproducible, transparent, and easy to share and collaborate on with colleagues.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "data-visual/tables.html",
+    "href": "data-visual/tables.html",
+    "title": "Tables",
+    "section": "",
+    "text": "There are several packages that generate aesthetically appealing tables.",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization",
+      "Tables"
+    ]
+  },
+  {
+    "objectID": "data-visual/tables.html#orange-results",
+    "href": "data-visual/tables.html#orange-results",
+    "title": "Tables",
+    "section": "Orange results",
+    "text": "Orange results\n\nPlotTable\n\n\n\nggplot(Orange,        \n       aes(age, circumference, color = Tree)) +   \n  geom_point() +   \n  geom_line() +  \n  scale_color_manual(values = tree_cols)\n\n\n\n\n\n\n\n\n\n\n\nhead(Orange)\n\n  Tree  age circumference\n1    1  118            30\n2    1  484            58\n3    1  664            87\n4    1 1004           115\n5    1 1231           120\n6    1 1372           142\n\n\n\n\n\n🚧",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization",
+      "Tables"
+    ]
+  },
+  {
+    "objectID": "data-visual/ggplot.html",
+    "href": "data-visual/ggplot.html",
+    "title": "ggplot",
+    "section": "",
+    "text": "There are 3 required components:\nTo start, let’s load our library and get a dataset.\nlibrary(tidyverse)  \n\ndata()  \n\nOrange\n\n   Tree  age circumference\n1     1  118            30\n2     1  484            58\n3     1  664            87\n4     1 1004           115\n5     1 1231           120\n6     1 1372           142\n7     1 1582           145\n8     2  118            33\n9     2  484            69\n10    2  664           111\n11    2 1004           156\n12    2 1231           172\n13    2 1372           203\n14    2 1582           203\n15    3  118            30\n16    3  484            51\n17    3  664            75\n18    3 1004           108\n19    3 1231           115\n20    3 1372           139\n21    3 1582           140\n22    4  118            32\n23    4  484            62\n24    4  664           112\n25    4 1004           167\n26    4 1231           179\n27    4 1372           209\n28    4 1582           214\n29    5  118            30\n30    5  484            49\n31    5  664            81\n32    5 1004           125\n33    5 1231           142\n34    5 1372           174\n35    5 1582           177\nYou’re probably wonder… I thought we were using ggplot2. We are… but as mentioned in the introduction to R section, the tidyverse ecosytem is quite resourceful - and include ggplot2 and for this section, it also has datasets. I chose Orange.\nLet’s run the first two important components…",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization",
+      "ggplot"
+    ]
+  },
+  {
+    "objectID": "data-visual/ggplot.html#size-of-points",
+    "href": "data-visual/ggplot.html#size-of-points",
+    "title": "ggplot",
+    "section": "Size of points",
+    "text": "Size of points\n\nggplot(data = Orange,        \n       mapping = aes(x = age, y = circumference)) +   \n  geom_point(size = 3)",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization",
+      "ggplot"
+    ]
+  },
+  {
+    "objectID": "data-visual/ggplot.html#colour-of-points",
+    "href": "data-visual/ggplot.html#colour-of-points",
+    "title": "ggplot",
+    "section": "Colour of points",
+    "text": "Colour of points\n\nggplot(data = Orange,        \n       mapping = aes(x = age, y = circumference)) +   \n  geom_point(size = 3, color = \"orange\")",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization",
+      "ggplot"
+    ]
+  },
+  {
+    "objectID": "data-visual/ggplot.html#add-a-line",
+    "href": "data-visual/ggplot.html#add-a-line",
+    "title": "ggplot",
+    "section": "Add a line",
+    "text": "Add a line\n(i.e an additional geometric representation)\n\nggplot(data = Orange,        \n       mapping = aes(x = age, y = circumference)) +   \n  geom_point(size = 3, color = \"orange\") +   \n  geom_line()",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization",
+      "ggplot"
+    ]
+  },
+  {
+    "objectID": "data-visual/ggplot.html#colour-of-line",
+    "href": "data-visual/ggplot.html#colour-of-line",
+    "title": "ggplot",
+    "section": "Colour of line",
+    "text": "Colour of line\n\nggplot(data = Orange,        \n       mapping = aes(x = age, y = circumference)) +   \n  geom_point(size = 3, color = \"orange\") +  \n  geom_line(color = \"darkgreen\")\n\n\n\n\n\n\n\n\nWe can even specify colour by a categorical variable! By applying the colour in mapping(), both geom_point() and geom_line() will be customized.\n\nggplot(data = Orange,        \n       mapping = aes(x = age, y = circumference, color = Tree)) +\n  geom_point() +   \n  geom_line()\n\n\n\n\n\n\n\n\nLet’s say we want to specify colours for Tree categories…\nWe can do this 2 ways:\n1. Hard coding\n\nggplot(data = Orange,        \n       mapping = aes(x = age, y = circumference, color = Tree)) + \n  geom_point() +  \n  geom_line() +   \n  scale_color_manual(     \n    values = c(       \n      \"1\" = \"#F5276C\",      \n      \"2\" = \"darkorange\",      \n      \"3\" = \"blue\",       \n      \"4\" = \"purple\",       \n      \"5\" = \"black\" \n      )  \n    )\n\n\n\n\n\n\n\n\n2. List\n\ntree_cols &lt;- c( \n  \"1\" = \"#F5276C\", \n  \"2\" = \"darkorange\", \n  \"3\" = \"blue\", \n  \"4\" = \"purple\",\n  \"5\" = \"black\" \n  )  \nggplot(data = Orange, \n       mapping = aes(x = age, y = circumference, color = Tree)) +\n  geom_point() +   \n  geom_line() +  \n  scale_color_manual(values = tree_cols)\n\n\n\n\n\n\n\n\nCreating a List is a far more reproducible. It allows you to apply that same list to other ggplot() and the code is visually less daunting.\nNow that we know how the important components work, let’s simplify the code a bit. The function is smart and knows what to expect in what order so we can remove things!\nLet’s remove data, mapping, x, and y …\n\nggplot(Orange,         \n       aes(age, circumference, color = Tree)) +   \n  geom_point() +   \n  geom_line() +   \n  scale_color_manual(values = tree_cols)",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization",
+      "ggplot"
+    ]
+  },
+  {
+    "objectID": "coding-practices/index.html",
+    "href": "coding-practices/index.html",
+    "title": "Recommended Coding Practices",
+    "section": "",
+    "text": "Sources for this section\nR 4 Epidemiology (2025). 10 Coding best practices.https://www.r4epi.com/chapters/best_practices/best_practices?utm_source=chatgpt.com9\nCoding Best Practices and Guidelines for Better Code | DataCamp\nR for Data Science (2023). 6 Workflow: scripts and projects.https://r4ds.hadley.nz/workflow-scripts.html\n\n\nKey Elements for Coding\n\nEnvironment: Defining where your files are imported from and exported to is important regardless of the statistical software used. It is highly recommended to work with relative file paths. This will be further discussed in the section Preparing your R Project.\n\nAbsolute File Path - as the name suggests, an absolute path points to the same location regardless of the working directory. It usually begins at the computer’s home directory and the follows the same exact directory structure to a file. This can become an issue when sharing code with others, as the same path will not exist on another person’s computer.\n\nC:\\Users\\SHILL\\folder1\\subfolder2\\sub-subfolder3\\stat materials\\demo\\fox\\ohl_data.xlsx\n\nRelative File Path - also self-explanatory, a relative file path is defined in relation to the working directly. This makes sharing code more portable - if someone else copies the project with the same directory structure, the relative paths can still work.\n\nfox\\ohl_data.xlsx\n\n\nComment Your Code: Providing comments to explain the why behind your code within a script is a great habit! Any text that appears after # on a line is ignored by R, but provides valuable context for future self and colleagues about what the code is doing. You can also make sections withing your code to break your script into more manageable pieces.\n\n# data cleaning ---------------------------------------     \n# rename species variables - less confusing  \ntidy_random_data &lt;- random_data |&gt;      \n  mutate(species = recode(species,\n                          \"bro\" = \"broiler\",  \n                          \"cat\" = \"cattle\", \n                          \"goa\" = \"goat\"))\nTo create a header like “data cleaning”, the shortcut is Ctl + Shift + R\n\nConsistent Style:\n\nCase Conventions and Naming - a consistent casing convention should be used across all data frames, variables, and functions. Inconsistent casing can complicate data cleaning and analysis workflows. In addition, avoid spaces, symbols, and special characters. The naming of objects, data frames, functions, and variables should describe what it is. For standardization, snake_case with no capitalization is recommended.\n\n\n\n\n\n\n\n\n\n\nExample\nMachine readable\nHuman readable\n\n\n\n\n\n(delimit words with - or _ )\n(context for what)\n\n\nfig_model_3\n✓\n✓\n\n\nfig-model-3\n✓\n✓\n\n\nfig model 3\n✗\n✓\n\n\nfig\n✓\n✗\n\n\n\n\nSyntax: The goal when writing code is for it to be readable\n\nCommas - always put a space after a comma.\nParentheses - don’t put spaces inside or outside parentheses for function calls",
+    "crumbs": [
+      "Introduction",
+      "Recommended Coding Practices"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "data-organization/index.html",
+    "href": "data-organization/index.html",
+    "title": "Best Practices for Spreadsheet Data Organization",
+    "section": "",
+    "text": "Sources for this section\nBroman, K.W. & Woo, K.H. (2018). Data Organization in Spreadsheets. The American Statistician, 72(1), 2-10. https://doi.org/10.1080/00031305.2017.1375989\nData Organization in Spreadsheets for Ecologists: Formatting problems\n\n\nKey Elements for a Project\n\nRaw Spreadsheet: The raw spreadsheet serves as the primary data entry file. It must not contain any calculations, transformations, or derived variables.\nAnalysis Spreadsheet: The analysis spreadsheet is a secondary version of the raw dataset in which calculations, transformations, and derived variables may be applied.\nData Dictionary: The data dictionary documents all variables and must include variable definitions, permissible values, and variable types.\nCell Formatting and Spacing: Extra spaces within cells can cause errors in data processing and analysis. Avoid introducing leading, trailing, or embedded spaces during data entry. Replace spaces between words with underscores (e.g. max days ➙ max_days).\nCase Conventions: A consistent casing convention should be used across all files, variables, and scripts (e.g. snake_case, camelCase, kebab-case, or PascalCase). Inconsistent casing can complicate data cleaning and analysis workflows. For standardization, snake_case with no capitalization is recommended for file names, column names, observations, and code scripts.\nConsistency is critical to maintaining data integrity and analytical efficiency. The following practices should be observed:\n\nCategorical Variable Coding: Categorical variables (e.g. yes/no) should be coded consistently across all columns and datasets. Mixing formats such as “Yes”, “yes”, and “1” should be avoided.\n\nWhen using binary coding (0/1), it is helpful to keep the meaning consistent throughout all datasets (e.g. 0 = No, 1 = Yes).\n\nMissing Value Coding: All cells should contain a value to clearly distinguish true missing data from unintentionally omitted entries. A standardized missing-value code should be used, such as “na” (preferred for R-based workflows) or a “-” . Numeric placeholder (e.g. -999 or 999) is not recommended.\nVariable Naming Consistency: When multiple datasets contain equivalent variables, variable names should be identical across all spreadsheets to support seamless data integration.\nSubject Identifiers: Unique identifiers used across multiple datasets (e.g. AMU and AMR files) should be consistent in format and value. For example, a subject identifier should not appear as “003” in one file and “CIP003” in another.\nData Layout Across Files: Datasets intended for combination or comparative analysis should follow a consistent structural layout (e.g. all datasets in long format or all in in wide format).\nFile Naming Conventions: A standardized file-naming convention should be implemented to ensure clarity and long-term usability.\n\nSpaces should be replaced with underscores of hyphens\nFile names should not include ambiguous labels such as “final version”\nThe order of naming elements should remain consistent (e.g. group_abattoir 2025_ver2 should not be followed by abattoir_group_2025_ver3).\n\nDate Formatting: Dates stored in a single column should follow ISO 8601 format (YYYY-MM-DD). Alternatively, dates may be separated into three columns (YYYY, MM, DD) to facilitate analysis of individual date components (e.g. analysis of month)",
+    "crumbs": [
+      "Introduction",
+      "Best Practice for Spreadsheet Data Organization"
+    ]
+  },
+  {
+    "objectID": "data-visual/index.html",
+    "href": "data-visual/index.html",
+    "title": "Data Visualization",
+    "section": "",
+    "text": "Sources for this section\nChapter 12 Plotting with ggplot2 | Starting out with R and RStudio\n\nThis section will go through:\n\nHow to make a plot\nHow to customize tables",
+    "crumbs": [
+      "Introduction",
+      "Data Visualization"
+    ]
+  },
+  {
+    "objectID": "functions/index.html",
+    "href": "functions/index.html",
+    "title": "Functions",
+    "section": "",
+    "text": "Sources for this section\nR Function Writing 101 | R bloggers",
+    "crumbs": [
+      "Introduction",
+      "Functions"
+    ]
+  },
+  {
+    "objectID": "functions/index.html#scenario-1-5",
+    "href": "functions/index.html#scenario-1-5",
+    "title": "Functions",
+    "section": "Scenario 1 (⭐⭐/5)",
+    "text": "Scenario 1 (⭐⭐/5)\nIt’s that time of year where you perform similar analysis annually. You have separate datasets for E. coli, Salmonella, and Campylobacter and you want to select similar columns from each dataset - but with minor difference, such as an antimicrobial being used for one organism but not another. Rather than repeating most of your code three separate times, you can create a reusable function and apply it across datasets like this:\n# create function that specifies relevant columns   \nselect_amr_columns &lt;- function(df, organism) {\nif (organism == \"ecoli\") { \n  df |&gt;             \n    select(  \n      isolate_id,\n      region,  \n      year,   \n      month, \n      qtr,  \n      sttype,\n      final_id_genus, \n      final_id_species, \n      cmic_amc, \n      cmic_amp,  \n      cmic_azm, \n      cmic_fox, \n      cmic_cro, \n      cmic_chl, \n      cmic_cip, \n      cmic_gen, \n      cmic_nal,  \n      cmic_sss, \n      cmic_tet, \n      cmic_sxt,      \n      cmic_tio,  \n      cmic_str  \n      )        \n  } else if (organism == \"salm\") { \n    df |&gt;      \n      select(  \n        isolate_id,  \n        region,  \n        year,   \n        month,  \n        qtr,   \n        sttype,\n        final_id_genus, \n        final_id_species,  \n        final_id_serotype, \n        cmic_amc,      \n        cmic_amp,    \n        cmic_azm,    \n        cmic_fox,   \n        cmic_cro,    \n        cmic_chl,    \n        cmic_cip,    \n        cmic_gen,  \n        cmic_nal,  \n        cmic_sss, \n        cmic_tet, \n        cmic_sxt, \n        cmic_tio, \n        cmic_str  \n        )         \n    } else if (organism == \"campy\") { \n      df |&gt;      \n        select(    \n          isolate_id, \n          region,    \n          year, \n          month, \n          qtr,   \n          sttype,\n          final_id_genus,\n          final_id_species, \n          cmic_gen,    \n          cmic_cli,   \n          cmic_azm, \n          cmic_ery, \n          cmic_flr,  \n          cmic_cip, \n          cmic_nal, \n          cmic_tet,  \n          cmic_tel)   \n      } else stop(\"Invalid organism.\")    \n  }   \n# usage of function   \necoli_amr_data &lt;- select_amr_columns(ecoli_data, \"ecoli\") salm_amr_data &lt;- select_amr_columns(salm_data, \"salm\") \ncampy_amr_data &lt;- select_amr_columns(ecoli_data, \"campy\")\nNote: There are likely more eloquent ways to write this function (i.e. starts_with() but I initially chose to hard-code the column names. This made it easier to work with a new dataset and explicitly control which variables were included, especially when some columns may no longer be of interest (e.g. cmic_kan).\nHow it works:\n\nFunction Definition\n\nselect_amr_columns is the name assigned to the function.\n\nKeyword\n\nfunction() is telling R that you are creating a new function.\n\nParameter\n\ndf is the input object the function will perform on.\norganism is the argument that controls which organism-specific columns should be selected\n\nFunction Body\n\nif and else_if are used to check which organism was specified\nif (organism == \"ecoli\") select columns specified in select( ).\nelse_if (organism == \"salm\") select columns specified in select( ).\nelse_if (organism == \"campy\") select columns specified in select( ).\nelse stop (\"Invalid organisms\") generates an error message if a user enters an invalid organism (like \"select_amr_columns(ecoli_data, \"aeromonas\") ).\n\nUsage\n\necoli_amr_data is the assigned name for a new output (in this case, a dataframe).\nselect_amr_columns(ecoli_data, \"ecoli\") is applying the function to the value ecoli_data , while specifying columns for \"ecoli\"",
+    "crumbs": [
+      "Introduction",
+      "Functions"
+    ]
+  },
+  {
+    "objectID": "functions/index.html#scenario-2-5",
+    "href": "functions/index.html#scenario-2-5",
+    "title": "Functions",
+    "section": "Scenario 2 (⭐⭐⭐/5)",
+    "text": "Scenario 2 (⭐⭐⭐/5)\nYour data may only has MIC variables or you may want to validate the CMIC variables. Rather than repeating most of your code for each MIC variable (there’s quite a few antimicrobials on that panel…), you can create a reusable function and apply it across multiple variables - and even across datasets in the future.\n# create function that generates CMIC from MIC  \ncmic_expected &lt;- function(df) { \n  mic_cols &lt;- grep(\"mic_\", names(df), value = TRUE)\n  for (abx in mic_cols) { \n    x &lt;- str_trim(df[[abx]]) \n    numeric_part &lt;- suppressWarnings(as.numeric( \n      str_extract(x, \"[0-9]+\\\\.?[0-9]*\")))  \n    df[[paste0(\"cmic_\", sub(\"mic_\", \"\", abx))]] &lt;- dplyr::case_when(     is.na(x) ~ NA_real_, \n                                                                         str_detect(x, \"^\\\\s*(&gt;|&gt;=|≥)\") ~ numeric_part * 2,  \n                                                                         str_detect(x, \"^\\\\s*(&lt;|&lt;=|≤)\") ~ numeric_part,  \n                                                                         !is.na(numeric_part) ~ numeric_part,                                                                         \n                                                                         TRUE ~ NA_real_                                                                                                                              )       \n    }        \n  return(df) \n  }  \n# usage of function  \necoli_amr_data &lt;- cmic_expected(ecoli_data)\nNote: There is a more efficient way to write this function (i.e. mutate(across())) but I find reading a loop can be easier and I’ve personally used parts of this function for data validation and flagging concerns.\nHow it works:\n\nFunction Definition\n\ncmic_expected is the name assigned to the function.\n\nKeyword\n\nfunction() is telling R that you are creating a new function.\n\nParameter\n\ndf is the input object the function will perform on.\n\nFunction Body\n\nmic_cols &lt;- grep(\"mic_\", names(df), value = TRUE) creates a vector containing all column names that start with \"mic_\". Setting value = TRUE keeps the actual column name rather than their positions in the dataframe.\nfor (abx in mic_cols) { } creates a loop that repeats the following instructions for item in the mic_cols vector. In this case, each item repesents an antimicrobial MIC column and is temporarily called abx.\nx &lt;- str_trim(df[[abx]]) extracts the current abx column from the dataframe and removes any extra spaces from each observation.\nnumeric_part &lt;- suppressWarnings(as.numeric(str_extract(x, \"[0-9]+\\.?[0-9]*\"))) creates a vector called numeric_part that extracts only the numeric portion from the observations in x.\n\nsuppressWarnings( ) silents the warning messages when values cannot be converted numeric values (e.g. abc).\n\n(as.numeric( )) converts the extracted values into a numeric variable type.\n\nstr_extract()extracts the numeric portion from each observation in the column.\n\n\n\ndf[[paste0(\"cmic_\", sub(\"mic_\", \"\", abx))]] &lt;- dplyr::case_when( ) dynamically creates a new column in the dataframe using the {dplyr} package. The new column name is generated by adding cmic_ to the beginning and removing \"mic_\" from the original column name (e.g. cmic_mic_amc ➙ cmic_amc). The case_when ( ) applies a series of conversion rules to the observations:\n\nis.na(x) ~ NA_real_, if the orginal value is missing (na), return a missing numeric value (na).\nstr_detect(x, \"^\\\\s*(&gt;|&gt;=|≥)\") ~ numeric_part * 2, if any spaces before text (^\\\\s*) followed by &gt; OR &gt;= OR ≥ is detected in an observation, return the numeric value multiplied by 2.\nstr_detect(x, \"^\\\\s*(&lt;|&lt;=|≤)\") ~ numeric_part, if any spaces before text (^\\\\s*) followed by &lt; OR &lt;= OR ≤ is detected in an observation, return the numeric value.\n!is.na(numeric_part) ~ numeric_part, if observation already contains a valid numeric value with no inequality symbols, return the numeric value unchanged.\nTRUE ~ NA_real_ Any remaining observations that do not match the previous conditions are returned as missing values (na).\n\n\nReturn Statement - return(df) specifies the final output in the function will return.\nUsage\n\necoli_amr_data is the assigned name for a new output (in this case, a dataframe).\ncmic_expected(ecoli_data) is applying the function to the value ecoli_data.",
+    "crumbs": [
+      "Introduction",
+      "Functions"
+    ]
+  },
+  {
+    "objectID": "intro-r/explore-data.html",
+    "href": "intro-r/explore-data.html",
+    "title": "Data Exploration",
+    "section": "",
+    "text": "There are quite a few ways to explore your data, and depending on your objectives, packages can increase the sophistication of your data exploration. However, we’ll start small and work our way toward more advanced approaches.\n\nView the data\n1. Within the Console\n\ndata\n\n# A tibble: 21 × 6\n   Player         Team  Points Pet    Division  SPCT\n   &lt;chr&gt;          &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;\n 1 Draisaitl      EDM       25 Cat    PAC       17  \n 2 McDavid        EDM       25 Dog    PAC        9.3\n 3 Bouchard       EDM       22 Rabbit PAC       10.2\n 4 Trocheck       NYR       18 Cat    MET       18.9\n 5 Tkachuk        FLA       18 Dog    ATL        9.4\n 6 Nugent-Hopkins EDM       17 Rabbit PAC       19  \n 7 Hyman          EDM       16 Snake  PAC       20.6\n 8 Vergaeghe      FLA       16 Cat    ATL       14.5\n 9 Robertson      DAL       16 Dog    CEN       18.2\n10 Barkov         FLA       15 Rabbit ATL       16.7\n# ℹ 11 more rows\n\n\n2. In a separate tab\nview(data)\n\n\nNumber of rows, columns, or both\nRows\n\nnrow(data)\n\n[1] 21\n\n\nColumns\n\nncol(data)\n\n[1] 6\n\n\nBoth\n\ndim(data)\n\n[1] 21  6\n\n\n\n\nRow and column names\nRows\n\nrownames(data)\n\n [1] \"1\"  \"2\"  \"3\"  \"4\"  \"5\"  \"6\"  \"7\"  \"8\"  \"9\"  \"10\" \"11\" \"12\" \"13\" \"14\" \"15\"\n[16] \"16\" \"17\" \"18\" \"19\" \"20\" \"21\"\n\n\nColumns\n\ncolnames(data)\n\n[1] \"Player\"   \"Team\"     \"Points\"   \"Pet\"      \"Division\" \"SPCT\"    \n\n\n\n\nView the first or last 6 rows\nFirst 6\n\nhead(data)\n\n# A tibble: 6 × 6\n  Player         Team  Points Pet    Division  SPCT\n  &lt;chr&gt;          &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;\n1 Draisaitl      EDM       25 Cat    PAC       17  \n2 McDavid        EDM       25 Dog    PAC        9.3\n3 Bouchard       EDM       22 Rabbit PAC       10.2\n4 Trocheck       NYR       18 Cat    MET       18.9\n5 Tkachuk        FLA       18 Dog    ATL        9.4\n6 Nugent-Hopkins EDM       17 Rabbit PAC       19  \n\n\nLast 6\n\ntail(data)\n\n# A tibble: 6 × 6\n  Player   Team  Points Pet    Division  SPCT\n  &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;\n1 Johnston COL       14 Dog    CEN       15.7\n2 Benn     DAL       13 Dog    CEN       11.8\n3 Seguin   DAL       12 Cat    CEN        9.8\n4 Miller   VAN       12 Dog    PAC       10.3\n5 Panarin  NYR       12 None   MET       11.4\n6 Bryam    BUF        9 Rabbit ATL       14.3\n\n\n\n\nStructure and Summary of data\nStructure\n\nglimpse(data)\n\nRows: 21\nColumns: 6\n$ Player   &lt;chr&gt; \"Draisaitl\", \"McDavid\", \"Bouchard\", \"Trocheck\", \"Tkachuk\", \"N…\n$ Team     &lt;chr&gt; \"EDM\", \"EDM\", \"EDM\", \"NYR\", \"FLA\", \"EDM\", \"EDM\", \"FLA\", \"DAL\"…\n$ Points   &lt;dbl&gt; 25, 25, 22, 18, 18, 17, 16, 16, 16, 15, 15, 15, 14, 14, 14, 1…\n$ Pet      &lt;chr&gt; \"Cat\", \"Dog\", \"Rabbit\", \"Cat\", \"Dog\", \"Rabbit\", \"Snake\", \"Cat…\n$ Division &lt;chr&gt; \"PAC\", \"PAC\", \"PAC\", \"MET\", \"ATL\", \"PAC\", \"PAC\", \"ATL\", \"CEN\"…\n$ SPCT     &lt;dbl&gt; 17.0, 9.3, 10.2, 18.9, 9.4, 19.0, 20.6, 14.5, 18.2, 16.7, 16.…\n\n\n\nstr(data)\n\ntibble [21 × 6] (S3: tbl_df/tbl/data.frame)\n $ Player  : chr [1:21] \"Draisaitl\" \"McDavid\" \"Bouchard\" \"Trocheck\" ...\n $ Team    : chr [1:21] \"EDM\" \"EDM\" \"EDM\" \"NYR\" ...\n $ Points  : num [1:21] 25 25 22 18 18 17 16 16 16 15 ...\n $ Pet     : chr [1:21] \"Cat\" \"Dog\" \"Rabbit\" \"Cat\" ...\n $ Division: chr [1:21] \"PAC\" \"PAC\" \"PAC\" \"MET\" ...\n $ SPCT    : num [1:21] 17 9.3 10.2 18.9 9.4 19 20.6 14.5 18.2 16.7 ...\n\n\nSummary\n\nsummary(data)\n\n    Player              Team               Points          Pet           \n Length:21          Length:21          Min.   : 9.00   Length:21         \n Class :character   Class :character   1st Qu.:14.00   Class :character  \n Mode  :character   Mode  :character   Median :15.00   Mode  :character  \n                                       Mean   :15.81                     \n                                       3rd Qu.:17.00                     \n                                       Max.   :25.00                     \n   Division              SPCT      \n Length:21          Min.   : 8.70  \n Class :character   1st Qu.:10.20  \n Mode  :character   Median :13.90  \n                    Mean   :13.72  \n                    3rd Qu.:16.70  \n                    Max.   :20.60  \n\n\nConfession time: on a day-to-day basis, other than the initial view of the dataset, I usually don’t use the commands above. Most of the time, I explore the data using a single function like skim below. However, it’s helpful to try out these base R commands to become familiar with the many ways you can explore and understand your data.\nMore sophisticated version\n\nlibrary(skimr)  \n\nskim(data)\n\n\nData summary\n\n\nName\ndata\n\n\nNumber of rows\n21\n\n\nNumber of columns\n6\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n4\n\n\nnumeric\n2\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nPlayer\n0\n1\n4\n14\n0\n21\n0\n\n\nTeam\n0\n1\n3\n3\n0\n7\n0\n\n\nPet\n0\n1\n3\n6\n0\n5\n0\n\n\nDivision\n0\n1\n3\n3\n0\n4\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nPoints\n0\n1\n15.81\n4.07\n9.0\n14.0\n15.0\n17.0\n25.0\n▃▇▆▁▃\n\n\nSPCT\n0\n1\n13.72\n3.76\n8.7\n10.2\n13.9\n16.7\n20.6\n▇▃▅▅▃\n\n\n\n\n\nThe beauty of skim is that it provides a ton of useful information, including variable type, number of missing and unique observations, whether there are white spaces that could cause you issues further down the line, and descriptive stats such as the mean, standard deviation, and a little histogram. I’m all about efficiency!\nTable\ntable() is a very simple base R command that I use all the time to quickly explore the data I’m working with. It allows you to review the count of observations in one or multiple columns.\n\ntable(data$Team)  \n\n\nBUF COL DAL EDM FLA NYR VAN \n  1   4   4   5   3   3   1 \n\ntable(data$Team,data$Pet)\n\n     \n      Cat Dog None Rabbit Snake\n  BUF   0   0    0      1     0\n  COL   1   2    1      0     0\n  DAL   1   2    1      0     0\n  EDM   1   1    0      2     1\n  FLA   1   1    0      1     0\n  NYR   1   1    1      0     0\n  VAN   0   1    0      0     0\n\n\n\n\nCheck and change variable type\nCheck all variables\n\nsapply(data, class)\n\n     Player        Team      Points         Pet    Division        SPCT \n\"character\" \"character\"   \"numeric\" \"character\" \"character\"   \"numeric\" \n\n\nCheck one variable\n\nclass(data$Pet)\n\n[1] \"character\"\n\n\nAsk if it’s a specific variable type\n\nis.factor(data$Pet)\n\n[1] FALSE\n\n\nLet’s say we want to change this to be a factor (categorical)\n\ndata$Pet &lt;- as.factor(data$Pet)  \n\nis.factor(data$Pet)\n\n[1] TRUE",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R",
+      "Data Exploration"
+    ]
+  },
+  {
+    "objectID": "intro-r/import.html",
+    "href": "intro-r/import.html",
+    "title": "Import a dataset",
+    "section": "",
+    "text": "Several types of data can imported to R, including: csv, xlsx, text. In addition, there are two main ways you can import data:\n1. Code in Console or Script file\n\nlibrary(readxl) \n\ndata &lt;- read_excel(\"data.xlsx\")\n\n2. Navigate through RStudio interface\nI highly recommend using this method if you are unsure what package to use for the file type. You can always follow the steps below and copy & paste the code preview for your script file.\n\nIn the bottom right quadrant, click Files tab\nFind the name of file and right-click\n\nYou will see “View File” and “Import Dataset…”\nClick Import Dataset…\n\nA new window will pop-up with a preview of the file\nClick Import",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R",
+      "Import a dataset"
+    ]
+  },
+  {
+    "objectID": "intro-r/manipulate-data.html",
+    "href": "intro-r/manipulate-data.html",
+    "title": "Data Manipulation",
+    "section": "",
+    "text": "Now, you’re probably thinking…\nYou’re right! Sometimes the data we receive won’t be perfect - but that’s something we can fix!",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R",
+      "Data Manipulation"
+    ]
+  },
+  {
+    "objectID": "intro-r/manipulate-data.html#add-columns",
+    "href": "intro-r/manipulate-data.html#add-columns",
+    "title": "Data Manipulation",
+    "section": "Add columns",
+    "text": "Add columns\n\nImport our new data set!\n\n\nnew_columns_data &lt;- read_excel(\"data2.xlsx\", sheet = \"Sheet1\")  \n\nhead(new_columns_data)\n\n# A tibble: 6 × 3\n  Player         Pregame_drink Country\n  &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  \n1 Draisaitl      Coffee        Germany\n2 McDavid        Redbull       Canada \n3 Bouchard       Juice         Canada \n4 Trocheck       Water         USA    \n5 Tkachuk        Coffee        USA    \n6 Nugent-Hopkins Redbull       Canada \n\n\n\nThere are a few join functions prefix_join(x, y) :\n\n\ninner_join() only keeps observations from x that have a matching key in y.\nleft_join() keeps all observations from x.\nright_join() keeps all observations from y.\nfull_join() keeps all observations from x and y.\n\n\nadd_columns_data &lt;- inner_join(data, new_columns_data, \n                               by = c(\"player\" = \"Player\"))  \n\nadd_columns_data \n\n# A tibble: 21 × 8\n   player         team  points pet    division  spct Pregame_drink Country\n   &lt;chr&gt;          &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  \n 1 Draisaitl      EDM       25 Cat    PAC       17   Coffee        Germany\n 2 McDavid        EDM       25 Dog    PAC        9.3 Redbull       Canada \n 3 Bouchard       EDM       22 Rabbit PAC       10.2 Juice         Canada \n 4 Trocheck       NYR       18 Cat    MET       18.9 Water         USA    \n 5 Tkachuk        FLA       18 Dog    ATL        9.4 Coffee        USA    \n 6 Nugent-Hopkins EDM       17 Rabbit PAC       19   Redbull       Canada \n 7 Hyman          EDM       16 Snake  PAC       20.6 Juice         Canada \n 8 Vergaeghe      FLA       16 Cat    ATL       14.5 Water         Canada \n 9 Robertson      DAL       16 Dog    CEN       18.2 Coffee        USA    \n10 Barkov         FLA       15 Rabbit ATL       16.7 Redbull       Finland\n# ℹ 11 more rows\n\n\nThis joins the two datasets together with a shared column players and Players.\nIf there were more player observations in data, inner_join() would join the observations that match, the remainder would not be included.\nIf there were more player observations in data, left_join() would join them but those players that are not in new_columns_data would have NA observations in Pregame_drink and Country columns\nIf there were more player observations in data, right_join() would join them but would only keep those players that are in new_column_data.\nIf there were more player observations in either data or new_columns_data, full_join() would join them but those players that are not shared in among datasets would have NA observations in Pregame_drink and Country columns.\nNow, let’s lowercase these column names before we continue…\n\nadd_columns_data &lt;- add_columns_data |&gt; \n  clean_names()",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R",
+      "Data Manipulation"
+    ]
+  },
+  {
+    "objectID": "intro-r/manipulate-data.html#add-rows",
+    "href": "intro-r/manipulate-data.html#add-rows",
+    "title": "Data Manipulation",
+    "section": "Add rows",
+    "text": "Add rows\n\nImport our second new data set!\n\n\nnew_rows_data &lt;- read_excel(\"data2.xlsx\", sheet = \"Sheet2\") |&gt;\n  clean_names()  \n\nhead(new_rows_data)\n\n# A tibble: 5 × 8\n  player     team  points pet    division  spct pregame_drink country\n  &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  \n1 Lafreniere NYR       14 Cat    MET       18.6 Redbull       Canada \n2 Reinhart   FLA       13 Dog    ATL       11.8 Juice         Canada \n3 Kreider    NYR       12 Rabbit MET       20.5 Coffee        USA    \n4 Boeser     VAN       12 Cat    PAC       25.9 Water         USA    \n5 Lundell    FLA       12 Dog    ATL       14.3 Coffee        Finland\n\n\n\nadd_rows_data &lt;- bind_rows(add_columns_data, new_rows_data)  \n\ntail(add_rows_data)\n\n# A tibble: 6 × 8\n  player     team  points pet    division  spct pregame_drink country\n  &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  \n1 Bryam      BUF        9 Rabbit ATL       14.3 Redbull       Canada \n2 Lafreniere NYR       14 Cat    MET       18.6 Redbull       Canada \n3 Reinhart   FLA       13 Dog    ATL       11.8 Juice         Canada \n4 Kreider    NYR       12 Rabbit MET       20.5 Coffee        USA    \n5 Boeser     VAN       12 Cat    PAC       25.9 Water         USA    \n6 Lundell    FLA       12 Dog    ATL       14.3 Coffee        Finland",
+    "crumbs": [
+      "Introduction",
+      "Introduction to R",
+      "Data Manipulation"
+    ]
+  },
+  {
+    "objectID": "loops/index.html",
+    "href": "loops/index.html",
+    "title": "Loops",
+    "section": "",
+    "text": "Sources for this section\nAn Introduction to R (2026). 7.5 Loops. https://intro2r.com/loops.html\nWhat is a loop | Painless Programming",
+    "crumbs": [
+      "Introduction",
+      "Loops"
+    ]
+  },
+  {
+    "objectID": "loops/index.html#structure-of-a-loop",
+    "href": "loops/index.html#structure-of-a-loop",
+    "title": "Loops",
+    "section": "Structure of a loop",
+    "text": "Structure of a loop\n\nfor loop\ndo this task for a set number of times\nfor (i in x) {   \n  # task \n}\n\nKeyword for ( ): Tells R you want to loop a task for\nParameter i in x: Defines what is being looped. index i is iteratively replaced by each value in the vector x. In simple terms: For each item (i) in x , perform the following…\nResult: The loop replaces i with 1 and prints 1, the loop replaces i with 2 and prints 2, the loop replaces i with 3 and prints 3, the loop replaces i with 4 and prints 4, and the loop replaces i with 5 and prints 5.\n\nNote: Loops conventionally use i (short for iteration) but you can use whatever term you like - for (number in 1:5) or even something cheeky like for (KingGeorge in 1:5).\nExample\n\nfor (i in 1:5) {\n  print(i)\n}\n\n[1] 1\n[1] 2\n[1] 3\n[1] 4\n[1] 5\n\n\n\nKeyword for ( ): Tells R you want to loop a task for\nParameter i in 1:5: Defines what is being looped. index i is iteratively replaced by each value in the vector 1:5. In simple terms: For each item i = 1, 2, 3, 4, and 5 in 1:5 , perform the following…\nLoop Body\n\nAny instructions that are enclosed in curly braces { }.\nprint(i) prints i\n\n\n\n\nwhile loop\ndo this task until something changes\nwhile (logical condition) {   \n  # task\n}\nExample\n\ni &lt;- 0\n\nwhile (i &lt;= 4) {\n  \n  i &lt;- i +1\n  \n  print(i)\n}\n\n[1] 1\n[1] 2\n[1] 3\n[1] 4\n[1] 5\n\n\ni &lt;- 0 starts at i at 0.\n\nKeyword while ( ): Tells R you want to loop a task while i is within our logical condition.\nParameter i &lt;= 4: Defines what is being looped. index i is iteratively replaced by each value that is equal to or greater than 4. In simple terms: For each item i = 0, 1, 2, 3, and 4, perform the following…\nLoop Body\n\nAny instructions that are enclosed in curly braces { }.\ni &lt;- i + 1 adds 1 to i value.\nprint(i) prints i\n\nOutcome:\n\n1 &lt;- 0 + 1\n\nprints(1)\n\n2 &lt;- 1 + 1\n\nprints(2)\n\n3 &lt;- 2 + 1\n\nprints(3)\n\n4 &lt;- 3 + 1\n\nprints(4)\n\n5 &lt;- 4 + 1\n\nprints(5)\n\nstops here because the next i would be 5 which is not &lt;=4",
+    "crumbs": [
+      "Introduction",
+      "Loops"
+    ]
+  },
+  {
+    "objectID": "prep-project/index.html",
+    "href": "prep-project/index.html",
+    "title": "Preparing your R project",
+    "section": "",
+    "text": "This section might raise some eyebrows, so I’d like to preface that workflow organization is highly dependent on personal preference. That said, I’m going to illustrate my own workflow and explain the reasoning behind it.",
+    "crumbs": [
+      "Introduction",
+      "Preparing your R Project"
+    ]
+  },
+  {
+    "objectID": "prep-project/index.html#simple-project",
+    "href": "prep-project/index.html#simple-project",
+    "title": "Preparing your R project",
+    "section": "Simple project",
+    "text": "Simple project\nWhen data is already validated and just requires some minor cleaning and wrangling.\n\n\n\nDiagram was made using https://www.makefolders.com/",
+    "crumbs": [
+      "Introduction",
+      "Preparing your R Project"
+    ]
+  },
+  {
+    "objectID": "prep-project/index.html#complex-project",
+    "href": "prep-project/index.html#complex-project",
+    "title": "Preparing your R project",
+    "section": "Complex project",
+    "text": "Complex project\nWhen data is needs validation or requires significant cleaning and wranging.\n\n\n\nDiagram was made using https://www.makefolders.com/",
+    "crumbs": [
+      "Introduction",
+      "Preparing your R Project"
+    ]
+  },
+  {
+    "objectID": "version-control/index.html",
+    "href": "version-control/index.html",
+    "title": "Version Control",
+    "section": "",
+    "text": "Sources for this section\nWhat is Version Control?\nLet’s Git started | Happy Git and GitHub for the useR\n\nDo you…\n\nHave issues with sharing code with a colleague?\nHave multiple versions of code saved because you’re worried about losing historical versions?\nWant to work on a project simultaneously with a colleague?\n\nVersion control might be useful to you! Imagine a google word doc system for code. It streamlines code development and mitigates lost work and time by tracking changes, enabling multiple people to collaborate simultaneously, identifying conflicting edits, and prevents accidental overwrites.\n\n\nBasic features\n\nRepository: A centralized database that stores the complete collection of files and folders for a project, along with the revision history.\nCommit: A “snapshot” of changes that are tagged and identified - these are changes saved on your local computer.\nPush: This saves your commit to the cloud (i.e. visible on your Github.com repository and to other collaborators).\n\nPull: This grabs any commits that were pushed onto the cloud (i.e. changes made by other collaborators).\nBranch: A code that has branched into a separate, parallel version of the main code. This is useful for collaborators to work independently without changing the main code.\nMerge: When users combine code edits and integrate changes from on branch into another or into the main code.\n\n\n\nPull Request: Mechanism used to propose, notate, review, and discuss changes in code before they merge into the main code.\nConflict: Ability to identify and resolve conflicting edits or changes among multiple collaborators.\n\n\nNote: these steps are slightly dramatized in the diagrams. One of the nice features of GitHub is that it guides users through the workflow with prompts for the next steps. For example, after you Commit, GitHub will typically suggest a Push. If it detects changes from another collaborator or a conflict, a Review Pull Request prompt will appear.\nThis section will go through:\n\nHow to set-up as a first user\nGeneral use as a on-going user",
+    "crumbs": [
+      "Introduction",
+      "Version Control"
+    ]
+  }
+]
