@@ -1,0 +1,69 @@
+---
+title: "Packages"
+---
+
+**Packages** expand the vocabulary and/or slang, allowing for R to increase their capabilities.
+
+**Building a good library (with packages)**
+
+Some packages are great, some are redundant, and some aren't worth having on your roster.
+
+![](images/roster.png){width="481"}
+
+For example: there are at least **3** packages that can import *.xlsx* files
+
+1.  {openxlsx} - `read.xlsx`
+
+2.  {xlsx} - `read.xlsx`
+
+3.  {readxl} - `read_excel`
+
+There is no *right* choice but this just highlights that there is different "slang" depending on the package you use and some packages may have other capabilities that you may want.
+
+Both {openxlsx} and {readxl} packages have the capabilities of reading (importing) and writing (exporting) *.xlsx* files. Whereas, {readxl} package only has the reading capabilities but is part of the {Tidyverse} package ecosystem. This means that if you install {tidyverse} (which is HIGHLY recommended) - it will automatically install all other packages within their ecosystem (including {readxl} ).
+
+#### **Installing a Package**
+
+There are 2 main ways you can install a new package:
+
+**1. Code in Console**
+
+``` r
+install.packages("tidyverse")
+```
+
+**2. Navigate through RStudio interface**
+
+-   In the bottom right quadrant, click **Packages** tab
+
+-   Click **Install packages**
+
+-   How to fill this in:
+
+    -   Install from: [Respository CRAN]{style="color:red; "}
+
+    -   Packages: [tidyverse]{style="color:red; "}
+
+    -   Install to Libraries: [C:/Program Files/R/R-4.4.3/library \[default\]]{style="color:red; "}
+
+    -   ![](images/clipboard-33796902.png)Install dependencies
+
+#### **Loading a Package**
+
+There are 2 main ways you can load a package:
+
+**1. Code in Console or Script file**
+
+```{r}
+#| message: false
+#| warning: false
+library(tidyverse)
+```
+
+**2. Navigate through RStudio interface**
+
+-   In the bottom right quadrant, click **Packages** tab
+
+-   Either scroll through the system library or type package in the 🔍search box
+
+-   Click ☐ for it to appear like ![](images/clipboard-33796902.png)

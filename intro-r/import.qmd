@@ -1,0 +1,29 @@
+---
+title: "Import a dataset"
+---
+
+Several types of data can imported to R, including: *csv*, *xlsx*, *text*. In addition, there are two main ways you can import data:
+
+**1. Code in Console or Script file**
+
+```{r}
+library(readxl) 
+
+data <- read_excel("data.xlsx")
+```
+
+**2. Navigate through RStudio interface**
+
+I highly recommend using this method if you are unsure what package to use for the file type. You can always follow the steps below and copy & paste the code preview for your script file.
+
+-   In the bottom right quadrant, click **Files** tab
+
+-   Find the name of file and right-click
+
+    -   You will see "View File" and "**Import Dataset...**"
+
+    -   Click **Import Dataset...**
+
+-   A new window will pop-up with a preview of the file
+
+-   Click **Import**

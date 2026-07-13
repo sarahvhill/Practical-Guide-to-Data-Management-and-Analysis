@@ -1,0 +1,55 @@
+---
+title: "Introduction to R"
+---
+
+**R** is a programming language that is known for statistical computing and data visualization. Although, it has a wide range of capabilities including (but not limited to):
+
+-   Presentations (.pptx)
+
+-   Reproducible reports (.html, .docx, .pdf)
+
+-   Microbial analysis (including genomics)
+
+-   Dashboards
+
+This section will go through:
+
+1.  [What are packages and how do we use them](packages.qmd)
+2.  [How to Import a dataset](import.qmd)
+3.  [Ways to explore your data](explore-data.qmd)
+4.  [How to manipulate your data](manipulate-data.qmd)
+5.  [How to export a dataset](export.qmd)
+
+::: {.warning style="padding:0.1em; background-color:#ffb3de; color:#080808"}
+<span>
+
+<p style="margin-top:1em; text-align:center">
+
+<b>Practice alongside the code</b>
+
+</p>
+
+<p style="margin-left:1em;">
+
+If you'd like to follow along, try running each code chunk yourself and experiment with modifying the value to see how the output changes - download the data below!
+
+P.S if you haven't already - load tidyverse (we'll need it)
+
+</p>
+
+<a href="intro-r/data.xlsx" download="data.xlsx" class="download-btn">
+
+📥 Download Data
+
+</a>
+
+</p>
+
+<p style="margin-bottom:1em; margin-right:1em; text-align:center; font-family:Georgia">
+
+</p>
+
+</span>
+
+</div>
+:::

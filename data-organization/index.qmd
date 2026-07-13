@@ -1,0 +1,45 @@
+---
+title: "Best Practices for Spreadsheet Data Organization"
+---
+
+> **Sources for this section**
+>
+> Broman, K.W. & Woo, K.H. (2018). Data Organization in Spreadsheets. *The American Statistician*, 72(1), 2-10. <https://doi.org/10.1080/00031305.2017.1375989>
+>
+> [Data Organization in Spreadsheets for Ecologists: Formatting problems](https://datacarpentry.github.io/spreadsheet-ecology-lesson/02-common-mistakes)
+
+# Key Elements for a Project
+
+-   **Raw Spreadsheet**: The raw spreadsheet serves as the primary data entry file. It must not contain any calculations, transformations, or derived variables.
+
+-   **Analysis Spreadsheet**: The analysis spreadsheet is a secondary version of the raw dataset in which calculations, transformations, and derived variables may be applied.
+
+-   **Data Dictionary**: The data dictionary documents all variables and must include variable definitions, permissible values, and variable types.
+
+-   **Cell Formatting and Spacing**: Extra spaces within cells can cause errors in data processing and analysis. Avoid introducing leading, trailing, or embedded spaces during data entry. Replace spaces between words with underscores (e.g. max days ➙ max_days).
+
+-   **Case Conventions**: A consistent casing convention should be used across all files, variables, and scripts (e.g. snake_case, camelCase, kebab-case, or PascalCase). Inconsistent casing can complicate data cleaning and analysis workflows. For standardization, snake_case with no capitalization is recommended for file names, column names, observations, and code scripts.
+
+-   **Consistency** is critical to maintaining data integrity and analytical efficiency. The following practices should be observed:
+
+    -   **Categorical Variable Coding**: Categorical variables (e.g. yes/no) should be coded consistently across all columns and datasets. Mixing formats such as "Yes", "yes", and "1" should be avoided.
+
+        -   When using binary coding (0/1), it is helpful to keep the meaning consistent throughout all datasets (e.g. 0 = No, 1 = Yes).
+
+    -   **Missing Value Coding**: All cells should contain a value to clearly distinguish true missing data from unintentionally omitted entries. A standardized missing-value code should be used, such as "na" (preferred for R-based workflows) or a "-" . Numeric placeholder (e.g. -999 or 999) is not recommended.
+
+    -   **Variable Naming Consistency**: When multiple datasets contain equivalent variables, variable names should be identical across all spreadsheets to support seamless data integration.
+
+    -   **Subject Identifiers**: Unique identifiers used across multiple datasets (e.g. AMU and AMR files) should be consistent in format and value. For example, a subject identifier should not appear as "003" in one file and "CIP003" in another.
+
+    -   **Data Layout Across Files**: Datasets intended for combination or comparative analysis should follow a consistent structural layout (e.g. all datasets in long format or all in in wide format).
+
+    -   **File Naming Conventions**: A standardized file-naming convention should be implemented to ensure clarity and long-term usability.
+
+        -   Spaces should be replaced with underscores of hyphens
+
+        -   File names should not include ambiguous labels such as "final version"
+
+        -   The order of naming elements should remain consistent (e.g. group_abattoir 2025_ver2 should not be followed by abattoir_group_2025_ver3).
+
+    -   **Date Formatting**: Dates stored in a single column should follow ISO 8601 format (YYYY-MM-DD). Alternatively, dates may be separated into three columns (YYYY, MM, DD) to facilitate analysis of individual date components (e.g. analysis of month)

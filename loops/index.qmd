@@ -1,0 +1,91 @@
+---
+title: "Loops"
+---
+
+> **Sources for this section**
+>
+> An Introduction to R (2026). 7.5 *Loops.* <https://intro2r.com/loops.html>
+>
+> [What is a loop \| Painless Programming](https://painlessprogramming.com/what-is-a-loop/)
+
+# What is a loop?
+
+A **loop** is a set of instructions packaged to be repeated a specific number of times or until a specific condition is met. Basically, a loop tells R to repeat the same chunk of code. This section will demonstrate how to create two useful types of loops: *for loop* and *while loop*.
+
+**Rule of Thumb:** Loops can definitely overused, and in some cases functions can be more efficient ([click here for read](https://intro2r.com/loops.html#when-to-use-a-loop)). That said, I like using loops - especially for generating `{.tabset}` HTML visualizations or within functions. Personally, I find loop easier to read, interpret and write in many situations. Just keep in mind that loops can become slower when working with very large datasets, and in those cases an alternative approach may be warranted.
+
+## Structure of a loop
+
+### *for loop*
+
+do this task ***for*** a set number of times
+
+``` r
+for (i in x) {   
+  # task 
+}
+```
+
+1.  **Keyword** `for ( )`: Tells R you want to loop a task **for**
+2.  **Parameter** `i in x`: Defines what is being looped. index `i` is iteratively replaced by each value in the vector `x`. In simple terms: For each item (`i`) in `x` , perform the following...
+3.  **Result**: The loop replaces `i` with `1` and prints `1`, the loop replaces `i` with `2` and prints `2`, the loop replaces `i` with `3` and prints `3`, the loop replaces `i` with `4` and prints `4`, and the loop replaces `i` with 5 and prints `5`.
+
+Note: Loops conventionally use `i` (short for iteration) but you can use whatever term you like - `for (number in 1:5)` or even something cheeky like `for (KingGeorge in 1:5)`.
+
+**Example**
+
+```{r}
+for (i in 1:5) {
+  print(i)
+}
+```
+
+1.  **Keyword** `for ( )`: Tells R you want to loop a task **for**
+2.  **Parameter** `i in 1:5`: Defines what is being looped. index `i` is iteratively replaced by each value in the vector `1:5`. In simple terms: For each item `i` = `1`, `2`, `3`, `4`, and `5` in `1:5` , perform the following...
+3.  **Loop Body**
+    -   Any instructions that are enclosed in curly braces `{ }`.
+    -   `print(i)` prints `i`
+
+### *while loop*
+
+do this task ***until*** something changes
+
+``` r
+while (logical condition) {   
+  # task
+}
+```
+
+**Example**
+
+```{r}
+i <- 0
+
+while (i <= 4) {
+  
+  i <- i +1
+  
+  print(i)
+}
+```
+
+`i <- 0` starts at `i` at 0.
+
+1.  **Keyword** `while ( )`: Tells R you want to loop a task **while** `i` is within our logical condition.
+2.  **Parameter** `i <= 4`: Defines what is being looped. index `i` is iteratively replaced by each value that is equal to or greater than 4. In simple terms: For each item `i` = `0`, `1`, `2`, `3`, and `4`, perform the following...
+3.  **Loop Body**
+    -   Any instructions that are enclosed in curly braces `{ }`.
+    -   `i <- i + 1` adds 1 to `i` value.
+    -   `print(i)` prints `i`
+4.  **Outcome**:
+    -   `1 <- 0 + 1`
+        -   `prints(1)`
+    -   `2 <- 1 + 1`
+        -   `prints(2)`
+    -   `3 <- 2 + 1`
+        -   `prints(3)`
+    -   `4 <- 3 + 1`
+        -   `prints(4)`
+    -   `5 <- 4 + 1`
+        -   `prints(5)`
+    -   stops here because the next `i` would be 5 which is not `<=4`

@@ -1,0 +1,538 @@
+---
+title: "Data Manipulation"
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+library(readxl) 
+
+data <- read_excel("data.xlsx")
+```
+
+Now, you're probably thinking...
+
+> "This data doesn't follow the best practices mentioned in the first section..."
+
+You're right! Sometimes the data we receive won't be *perfect* - but that's something we can fix!
+
+# Change column cases
+
+**Lower case**
+
+```{r}
+lower_case_columns <- rename_all(.tbl=data, .funs=tolower)  
+
+colnames(lower_case_columns)
+```
+
+**Upper case**
+
+```{r}
+upper_case_columns <- rename_all(.tbl=data, .funs=toupper)  
+
+colnames(upper_case_columns)
+```
+
+# Change column names
+
+**One column**
+
+```{r}
+one_column_name <- data |>    
+  rename("shoting percentage" = SPCT)  
+
+colnames(one_column_name)
+```
+
+**Multiple or all columns**
+
+```{r}
+all_column_name <- rename(.data = data,
+                          "Hockey Player" = Player,
+                          "Hockey Team" = Team,
+                          "Player Points" = Points,
+                          pet = Pet,
+                          NHL_division = Division,
+                          Shooting_Percentage = SPCT)  
+
+colnames(all_column_name)
+```
+
+Notice that when there is a space between words it has to be wrapped with `" "` ? This will become annoying to work with as you continue your data wrangling and analysis.
+
+Again, these names are not ideal BUT this was intentionally done to show you a more sophisticated way to fix column names using the package `janitor`.
+
+**More sophisticated version**
+
+```{r}
+#| message: true
+#| warning: false
+
+library(janitor)  
+
+clean_names_data <- all_column_name |>   
+  clean_names()  
+
+colnames(clean_names_data) 
+```
+
+Now, the default is snake_case but if you have a preference - you can modify it.
+
+**For example: camelCase**
+
+```{r}
+clean_names_camel_data <- all_column_name |>
+  clean_names("lower_camel") 
+
+colnames(clean_names_camel_data)
+```
+
+For full transparency, I'll continue these demos with the original column names but change them to lower case.
+
+```{r}
+data <- data |>   
+  clean_names()  
+
+colnames(data)
+```
+
+# Change observations
+
+**Re-code one category within one column**
+
+```{r}
+table(data$pet)  
+recode_pet_data <- data |> 
+  mutate(pet = recode(pet,                      
+                      "Snake" = "Lizard"))  
+
+table(recode_pet_data$pet)
+```
+
+**Re-code multiple categories within one column**
+
+```{r}
+recode_multiple_pet_data <- data |>
+  mutate(pet = recode(pet,
+                      "Snake" = "Lizard",
+                      "Rabbit" = "Horse"))  
+
+table(recode_multiple_pet_data$pet)
+```
+
+**Re-code multiple categories within multiple columns**
+
+```{r}
+recode_multiple_col_data <- data |>
+  mutate(
+    pet = recode(pet, "Snake" = "Lizard", "Rabbit" = "Horse"),
+    division = recode(division, "PAC" = "PACIF")
+    ) 
+
+table(recode_multiple_col_data$division, recode_multiple_col_data$pet)
+```
+
+**Re-code multiple columns with similar change**
+
+In this instance, I want to lowercase all my character variables. Basically, `across(where())` is saying... "across the entire dataset where there are character variables, mutate (or change) all observations to lowercase letters.
+
+`toupper` will change all variables to upper case.
+
+```{r}
+recode_lowercase_data <- data |>
+  mutate(across(where(is.character), tolower))  
+
+head(recode_lowercase_data)
+```
+
+Ah! notice that the pet observations didn't change! That's because it's a factor - not a character variable. But, we can change that too! Basically, this is finding the factor variables, changing it to lowercase letters as if it was a character but keeping it as a factor variable.
+
+```{r}
+recode_lowercase_fct_data <- data |>
+  mutate(across(where(is.factor),
+                ~ factor(tolower(as.character(.)))))  
+
+head(recode_lowercase_fct_data)
+```
+
+`mutate()` function is incredibly useful and there are a ton more uses that will be discussed later on.
+
+# Select Function
+
+Let's say you are only interested in a few columns, rather than continuing your data processing and analysis with a large dataset, true to its name - simply `select()` the columns you need.
+
+**Select specific columns by name**
+
+```{r}
+select_data <- data |>
+  select(player, points, pet)
+
+head(select_data)
+```
+
+**Select specific columns that all start the same**
+
+```{r}
+select_p_data <- data |>
+  select(starts_with("p"))  
+
+head(select_p_data)
+```
+
+This doesn't have to be a letter, it can be more inclusive or exclusive. Examples include:
+
+`select(starts_with("mic")`
+
+`select(starts_with("cmic_")`
+
+In addition, you can also **select specific columns that all end the same**
+
+`select(ends_with("_AMC")`
+
+**Select specific columns that contain similarities**
+
+```{r}
+
+select_name_contain_data <- data |>
+  select(contains("p"))  
+
+head(select_name_contain_data)
+```
+
+More relevant example:
+
+`select(contains("mic_"))` this would select columns like **mic_amc** and **cmic_amc**
+
+**Select specific columns by name and similarity**
+
+```{r}
+select_name_p_data <- data |> 
+  select(team, starts_with("p"))
+
+head(select_name_p_data)
+```
+
+Notice that the order of columns changed? This is dependent on the order you select them. If you did `select(starts_with("p"), team)`, you'll notice team is at the end.
+
+Lastly, let's say there's only a few columns you don't want...
+
+**(De-)Select specific columns by name**
+
+```{r}
+
+deselect_name_data <- data |> 
+  select(-points, -spct)  
+
+head(deselect_name_data)
+```
+
+There are a few ways you can **De-select** columns:
+
+-   For more than two, I'd suggest doing this: `select(-c())`. That way the `-` is coded once.
+
+-   For similar columns, you could apply what you learned above (i.e `select(-starts_with("p"))`
+
+# Filter Function
+
+Let's say you are only interested in specific observations, rather than continuing your data processing and analysis with a large dataset, true to its name - simply `filter()` the observations you need.
+
+**Filter to keep 1 group of interest**
+
+`==` means equal
+
+```{r}
+
+filter_data <- data |>
+  filter(pet == "Cat")
+
+head(filter_data)
+```
+
+**Filter to remove 1 group**
+
+`!=` means does not equal
+
+```{r}
+
+filter_no_cat_data <- data |>
+  filter(pet != "Cat")  
+
+head(filter_no_cat_data)
+```
+
+**Filter a numerical range**
+
+`>=` means greater than or equal
+
+`<=` means less than or equal
+
+`>` means greater than
+
+`<` means less than
+
+```{r}
+filter_points_data <- data |>
+  filter(points >= 15)  
+
+head(filter_points_data)
+```
+
+**Filter multiple columns**
+
+Hockey Players that don't own a Cat and have 15 or more points
+
+`&` means and
+
+```{r}
+filter_and_data <- data |>
+  filter(pet != "Cat" & points >= 15)
+
+head(filter_and_data)
+```
+
+Hockey Players that don't own a Cat or have 15 or more points
+
+`|` means or
+
+```{r}
+filter_or_data <- data |>
+  filter(pet !="Cat" | points >= 15)  
+
+head(filter_or_data)   
+```
+
+# Mutate function
+
+The glorious `mutate()` function will become a regular occurrence throughout your coding adventures. Its introduction was teased earlier due to its many capabilities. So far, we've explored how `mutate()` can modify columns, but it can also create entirely new ones!
+
+**Create new binary column**
+
+```{r}
+new_bin_col_data <- data |>
+  mutate(spct_binary = if_else(spct >= 10, "high", "low"))
+
+head(new_bin_col_data) 
+```
+
+`if_else()` is used when there is only two outcomes.
+
+```{r}
+new_bin_pet_data <- data |> 
+  mutate(pet_binary = if_else(pet == "Cat", 1, 0))
+
+head(new_bin_pet_data)   
+```
+
+**Create new categorical column**
+
+```{r}
+new_cat_col_data <- data |> 
+  mutate(spct_rank = case_when(
+    spct < 10 ~ "low",
+    spct < 15 ~ "medium",
+    TRUE ~ "large"
+    )) 
+
+head(new_cat_col_data)
+```
+
+`case_when()` is used when there are multiple outcomes.
+
+```{r}
+new_cat_pet_data <- data |>   
+  mutate(pet_type = case_when(
+    pet == "Cat" ~ "indoor",
+    pet == "Dog" ~ "outdoor",
+    TRUE ~ "other"
+    ))  
+
+head(new_cat_pet_data)
+```
+
+Now we can add `|` or `&`
+
+**OR**
+
+```{r}
+
+new_bin_or_pet_data <- data |>
+  mutate(pet_binary = if_else(pet == "Cat" | pet == "Dog", 1, 0))  
+
+head(new_bin_or_pet_data)
+```
+
+If pet is either a cat OR dog - pet_binary = 1, otherwise pet_binary = 0.
+
+```{r}
+
+new_cat_or_pet_data <- data |>
+  mutate(pet_type = case_when(
+    pet == "Cat" | pet == "Rabbit" ~ "indoor",
+    pet == "Dog" ~ "outdoor",
+    TRUE ~ "other"
+    ))  
+
+head(new_cat_or_pet_data)
+```
+
+when pet is either a cat OR rabbit - pet_type = indoor, when pet is a dog - pet_type = outdoor, otherwise pet_type = other.
+
+**AND**
+
+```{r}
+
+new_bin_and_pet_data <- data |>
+  mutate(pet_binary = if_else(pet == "Dog" & spct >= 10, 1, 0))  
+
+new_bin_and_pet_data
+```
+
+if pet is a dog AND spct is greater than or equal to 10, pet_binary = 1, otherwise pet_binary = 0.
+
+```{r}
+new_cat_and_pet_data <- data |>
+  mutate(good_vibes = case_when(
+    pet == "Dog" & spct >= 10 ~ "decent",
+    pet == "Cat" & spct >= 12 ~ "happy",
+    TRUE ~ "neutral"
+    ))  
+
+new_cat_and_pet_data
+```
+
+when pet is a dog AND spct is greater than or equal to 10 - good_vibes = decent,
+
+when pet is a cat AND spct is greater than or equal to 12 - good_vibes = happy,
+
+otherwise, good_vibes = decent.
+
+**Create column based on calculation**
+
+We can make our own like *multiplying*
+
+```{r}
+player_spct_double_data <- data |>
+  mutate(spct_transform = spct * 2) 
+
+player_spct_double_data
+```
+
+or even as fancy as *squaring*
+
+```{r}
+player_spct_sq_data <- data |>
+  mutate(spct_transform = spct^2)  
+
+player_spct_sq_data
+```
+
+Then there's known functions like calculating the *average* by `group_by()` which groups identical observations from one column and calculates the average of another variable within each group.
+
+```{r}
+team_spct_data <- data |> 
+  group_by(team) |>
+  mutate(spct_avg = mean(spct)) 
+
+team_spct_data
+```
+
+want standard deviation as well?
+
+```{r}
+team_spct_sd_data <- data |>
+  group_by(team) |>   
+  mutate(spct_avg = mean(spct),
+         spct_sd = sd(spct))  
+
+team_spct_sd_data
+```
+
+::: {.warning style="padding:0.1em; background-color:#ffb3de; color:#080808"}
+<p style="margin-top:1em; text-align:center">
+
+<b>Practice alongside the code - part 2</b>
+
+</p>
+
+<p style="margin-left:1em;">
+
+I didn't lose you yet? phew! 😅 For this next part, if you'd like to continue following along, download the additional dataset below!
+
+<!--Download link -->
+
+<a href="intro-r/data2.xlsx" download="data2.xlsx" class="download-btn">
+
+📥 Download Data
+
+</a>
+
+</p>
+
+<p style="margin-bottom:1em; margin-right:1em; text-align:center; font-family:Georgia">
+
+</p>
+:::
+
+# Adding more data to an existing dataframe
+
+## Add columns
+
+1.  Import our new data set!
+
+```{r}
+new_columns_data <- read_excel("data2.xlsx", sheet = "Sheet1")  
+
+head(new_columns_data)
+```
+
+2.  There are a few `join` functions `prefix_join(x, y)` :
+
+-   `inner_join()` only keeps observations from x that have a matching key in y.
+
+-   `left_join()` keeps all observations from x.
+
+-   `right_join()` keeps all observations from y.
+
+-   `full_join()` keeps all observations from x and y.
+
+```{r}
+add_columns_data <- inner_join(data, new_columns_data, 
+                               by = c("player" = "Player"))  
+
+add_columns_data 
+```
+
+This joins the two datasets together with a shared column **players** and **Players**.
+
+If there were more player observations in **data**, `inner_join()` would join the observations that match, the remainder would not be included.
+
+If there were more player observations in **data**, `left_join()` would join them but those players that are not in `new_columns_data` would have NA observations in **Pregame_drink** and **Country** columns
+
+If there were more player observations in **data**, `right_join()` would join them but would only keep those players that are in `new_column_data`.
+
+If there were more player observations in either **data** or **new_columns_data**, `full_join()` would join them but those players that are not shared in among datasets would have NA observations in **Pregame_drink** and **Country** columns.
+
+Now, let's lowercase these column names before we continue...
+
+```{r}
+add_columns_data <- add_columns_data |> 
+  clean_names()
+```
+
+## Add rows
+
+1.  Import our second new data set!
+
+```{r}
+new_rows_data <- read_excel("data2.xlsx", sheet = "Sheet2") |>
+  clean_names()  
+
+head(new_rows_data)
+```
+
+```{r}
+add_rows_data <- bind_rows(add_columns_data, new_rows_data)  
+
+tail(add_rows_data)
+```

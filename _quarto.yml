@@ -1,0 +1,96 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Practical Guide to Data Management and Analysis"
+  page-navigation: true
+  navbar:
+    search: true
+    left:
+    - text: "Introduction"
+      href: index.qmd
+    - text: "New to R?"
+      menu: 
+      - sas-differences/index.qmd 
+      - navigate-rstudio/index.qmd
+      - intro-r/index.qmd
+    - text: "Advance your R skills!"
+      menu:
+      - data-visual/index.qmd
+      - loops/index.qmd
+      - functions/index.qmd
+  
+  sidebar: 
+    style: "docked"
+    collapse-level: 1
+    contents: 
+      - text: "Introduction"
+        icon: house-door
+        href: index.qmd
+      - text: "---"
+      - text: "Best Practice for Spreadsheet Data Organization"
+        icon: table
+        href: data-organization/index.qmd
+      - text: "Recommended Coding Practices"
+        icon: journal-code
+        href: coding-practices/index.qmd
+      - text: "Difference between SAS and R"
+        icon: plus-slash-minus
+        href: sas-differences/index.qmd
+      - text: "Navigating through RStudio"
+        icon: terminal
+        href: navigate-rstudio/index.qmd
+      - section: "Introduction to R"
+        icon: code
+        href: intro-r/index.qmd
+        contents: 
+          - intro-r/packages.qmd
+          - intro-r/import.qmd
+          - intro-r/explore-data.qmd
+          - intro-r/manipulate-data.qmd
+          - intro-r/export.qmd
+      - section: "Version Control"
+        icon: git
+        href: version-control/index.qmd
+        contents: 
+          - version-control/first-time.qmd
+          - version-control/on-going.qmd
+      - text: "Preparing your R Project"
+        icon: people
+        href: prep-project/index.qmd
+      - section: "Data Visualization"
+        icon: clipboard-data
+        href: data-visual/index.qmd
+        contents: 
+          - data-visual/ggplot.qmd
+          - data-visual/tables.qmd
+      - text: "Loops"
+        icon: arrow-repeat
+        href: loops/index.qmd
+      - text: "Functions"
+        icon: bi-braces
+        href: functions/index.qmd
+      - text: "Statistics"
+        icon: graph-up-arrow
+        href: statistics/index.qmd
+        
+      
+
+format:
+  html:
+    embed-resources: true
+    grid: 
+      sidebar-width: 400px
+      body-width: 1000px
+      margin-width: 250px
+      gutter-width: 1rem
+    theme: brite
+    css: styles.css
+    toc: true
+    
+
+editor: visual
+
+
+

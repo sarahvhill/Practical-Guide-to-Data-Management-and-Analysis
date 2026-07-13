@@ -1,0 +1,270 @@
+---
+title: "Functions"
+---
+
+> **Sources for this section**
+>
+> [R Function Writing 101 \| R bloggers](https://www.r-bloggers.com/2024/01/r-function-writing-101a-journey-through-syntax-best-practices-and-more/)
+
+# What is a function?
+
+A **function** is a set of instructions packaged into a resusable block of code. We already use functions created by package developers in our everyday coding (i.e `read_excel()`, `clean_names()`, and `mean()`. This section will demonstrate how to create our own functions!
+
+**Rule of Thumb**: If you are repeating the same or very similar code more than 2 times, it is more efficient to create a function for it.
+
+**Structure of a function**
+
+``` r
+my_function <- function(arg1, arg2, ...) {      
+  # function body      # perform instructions using arg1 and arg2      return(result)  }
+```
+
+1.  **Function Definition** `my_function`: The name you assign your function.
+2.  **Keyword** `function()`: Tells R you are creating a new function.
+3.  **Parameter** `(arg1, arg2, ...)`: Arguments (also called inputs) passed to the function. These can include:
+    1.  Data the function will use (such as a dataset, column, number, or text).
+    2.  Setting that change how the function behaves.
+4.  **Return Statement** `return(result)`: The final result or output produced by the function.
+
+**Example (level 1)**
+
+```{r}
+#create function  
+square <- function(x) {
+  result <- x^2      
+  return(result)    
+  }      
+squared_value <- square(4) # usage of function  print(squared_value) # view result
+```
+
+1.  **Function Definition**
+    -   `square` is the name assigned to the function.
+2.  **Keyword**
+    -   `function()` is telling R that you are creating a new function.
+3.  **Parameter**
+    -   `x` is the input value the function will perform calculations on. In this example, it represents the number you want to square.
+4.  **Function Body**
+    -   Any instructions that are enclosed in curly braces `{ }`.
+    -   `result <- x^2` calculates the square of x.
+5.  **Return Statement** - `return(result)` specifies the final output in the function will return.
+6.  **Usage**
+    -   `squared_value` is the assigned name for a new output (in this case, a variable).
+    -   `square(4)` is applying the function on the value `4`.
+        -   `4^2`
+    -   `print(squared_value)` prints the result to the console `16`.
+
+**Summary**: The function takes a single argument, squares it, and returns the result.
+
+```{r}
+squared_value <- square(18) # usage of function    
+print(squared_value) # view result
+```
+
+**Example (level 2)**
+
+Let's say, we want a function that calculates an exponent of a value but with flexibility - a single function that can square, cube, or a value to any power.
+
+```{r}
+power_function <- function(x, exponent = 2) {
+  result <- x^exponent     
+  return(result) 
+  }    
+power_deafult_value <- power_function(4)    
+print(power_deafult_value) 
+```
+
+```{r}
+power_option_value <- power_function(4, exponent = 3)   
+print(power_option_value) 
+```
+
+In this example, we added a new **parameter (or argument)**.
+
+1.  **Function Definition**
+    -   `power_funtion` is the name assigned to the function.
+2.  **Keyword**
+    -   `function()` is telling R that you are creating a new function.
+3.  **Parameter**
+    -   `x` is the input value the function will perform calculations on. In this example, it represents the number you want to raise to a power.
+    -   `exponent = 2` is the argument that controls how the function operates. The default value is `2`, meaning the function will square the input value unless another exponent is specified.
+4.  **Function Body**
+    -   Any instructions that are enclosed in curly braces `{ }`.
+    -   `result <- x^exponent` calculates the value of `x` raised to the selected exponent.
+5.  **Return Statement** - `return(result)` specifies the final output in the function will return.
+6.  **Usage \# 1**
+    -   `power_default_value` is the assigned name for a new output (in this case, a variable).
+    -   `power_function(4)` is applying the function to the value `4`. Since no exponent was specified, the function uses the default value of `2`.
+        -   `4^2`
+    -   `print(power_default_value)` prints the result to the console `16`.
+7.  **Usage \# 2**
+    -   `power_option_value` is the assigned name for a new output (in this case, a variable).
+    -   `power_function(4, exponent = 3)` is applying the function to the value `4` , while specifying an exponent of `3`.
+        -   `4^3`
+    -   `print(power_option_value)` prints the result to the console `64`.
+
+There are other ways to define **arguments** but I want to focus more on the practical application rather than going to deeply into the computer science concepts.
+
+# Practical functions
+
+In this section, I've compiled some custom functions that may be useful to adapt or repurpose for your own projects. In each scenario, i've included a repurposing rating to indicate how worthwhile it is for adaption.
+
+## Scenario 1 (⭐⭐/5)
+
+It's that time of year where you perform similar analysis annually. You have separate datasets for *E. coli*, *Salmonella*, and *Campylobacter* and you want to select similar columns from each dataset - but with minor difference, such as an antimicrobial being used for one organism but not another. Rather than repeating most of your code three separate times, you can create a reusable function and apply it across datasets like this:
+
+``` r
+# create function that specifies relevant columns   
+select_amr_columns <- function(df, organism) {
+if (organism == "ecoli") { 
+  df |>             
+    select(  
+      isolate_id,
+      region,  
+      year,   
+      month, 
+      qtr,  
+      sttype,
+      final_id_genus, 
+      final_id_species, 
+      cmic_amc, 
+      cmic_amp,  
+      cmic_azm, 
+      cmic_fox, 
+      cmic_cro, 
+      cmic_chl, 
+      cmic_cip, 
+      cmic_gen, 
+      cmic_nal,  
+      cmic_sss, 
+      cmic_tet, 
+      cmic_sxt,      
+      cmic_tio,  
+      cmic_str  
+      )        
+  } else if (organism == "salm") { 
+    df |>      
+      select(  
+        isolate_id,  
+        region,  
+        year,   
+        month,  
+        qtr,   
+        sttype,
+        final_id_genus, 
+        final_id_species,  
+        final_id_serotype, 
+        cmic_amc,      
+        cmic_amp,    
+        cmic_azm,    
+        cmic_fox,   
+        cmic_cro,    
+        cmic_chl,    
+        cmic_cip,    
+        cmic_gen,  
+        cmic_nal,  
+        cmic_sss, 
+        cmic_tet, 
+        cmic_sxt, 
+        cmic_tio, 
+        cmic_str  
+        )         
+    } else if (organism == "campy") { 
+      df |>      
+        select(    
+          isolate_id, 
+          region,    
+          year, 
+          month, 
+          qtr,   
+          sttype,
+          final_id_genus,
+          final_id_species, 
+          cmic_gen,    
+          cmic_cli,   
+          cmic_azm, 
+          cmic_ery, 
+          cmic_flr,  
+          cmic_cip, 
+          cmic_nal, 
+          cmic_tet,  
+          cmic_tel)   
+      } else stop("Invalid organism.")    
+  }   
+# usage of function   
+ecoli_amr_data <- select_amr_columns(ecoli_data, "ecoli") salm_amr_data <- select_amr_columns(salm_data, "salm") 
+campy_amr_data <- select_amr_columns(ecoli_data, "campy")
+```
+
+*Note*: There are likely more eloquent ways to write this function (i.e. `starts_with()` but I initially chose to hard-code the column names. This made it easier to work with a new dataset and explicitly control which variables were included, especially when some columns may no longer be of interest (e.g. `cmic_kan`).
+
+**How it works:**
+
+1.  **Function Definition**
+    -   `select_amr_columns` is the name assigned to the function.
+2.  **Keyword**
+    -   `function()` is telling R that you are creating a new function.
+3.  **Parameter**
+    -   `df` is the input object the function will perform on.
+    -   `organism` is the argument that controls which organism-specific columns should be selected
+4.  **Function Body**
+    -   `if` and `else_if` are used to check which organism was specified
+    -   `if (organism == "ecoli")` select columns specified in `select( )`.
+    -   `else_if (organism == "salm")` select columns specified in `select( )`.
+    -   `else_if (organism == "campy")` select columns specified in `select( )`.
+    -   `else stop ("Invalid organisms")` generates an error message if a user enters an invalid organism (like `"select_amr_columns(ecoli_data, "aeromonas")` ).
+5.  **Usage**
+    -   `ecoli_amr_data` is the assigned name for a new output (in this case, a dataframe).
+    -   `select_amr_columns(ecoli_data, "ecoli")` is applying the function to the value `ecoli_data` , while specifying columns for `"ecoli"`
+
+## Scenario 2 (⭐⭐⭐/5)
+
+Your data may only has MIC variables or you may want to validate the CMIC variables. Rather than repeating most of your code for each MIC variable (there's quite a few antimicrobials on that panel...), you can create a reusable function and apply it across multiple variables - and even across datasets in the future.
+
+``` r
+# create function that generates CMIC from MIC  
+cmic_expected <- function(df) { 
+  mic_cols <- grep("mic_", names(df), value = TRUE)
+  for (abx in mic_cols) { 
+    x <- str_trim(df[[abx]]) 
+    numeric_part <- suppressWarnings(as.numeric( 
+      str_extract(x, "[0-9]+\\.?[0-9]*")))  
+    df[[paste0("cmic_", sub("mic_", "", abx))]] <- dplyr::case_when(     is.na(x) ~ NA_real_, 
+                                                                         str_detect(x, "^\\s*(>|>=|≥)") ~ numeric_part * 2,  
+                                                                         str_detect(x, "^\\s*(<|<=|≤)") ~ numeric_part,  
+                                                                         !is.na(numeric_part) ~ numeric_part,                                                                         
+                                                                         TRUE ~ NA_real_                                                                                                                              )       
+    }        
+  return(df) 
+  }  
+# usage of function  
+ecoli_amr_data <- cmic_expected(ecoli_data)
+```
+
+*Note*: There is a more efficient way to write this function (i.e. `mutate(across())`) but I find reading a loop can be easier and I've personally used parts of this function for data validation and flagging concerns.
+
+**How it works:**
+
+1.  **Function Definition**
+    -   `cmic_expected` is the name assigned to the function.
+2.  **Keyword**
+    -   `function()` is telling R that you are creating a new function.
+3.  **Parameter**
+    -   `df` is the input object the function will perform on.
+4.  **Function Body**
+    -   `mic_cols <- grep("mic_", names(df), value = TRUE)` creates a vector containing all column names that start with `"mic_"`. Setting `value = TRUE` keeps the actual column name rather than their positions in the dataframe.
+    -   `for (abx in mic_cols) { }` creates a loop that repeats the following **instructions** for item in the `mic_cols` vector. In this case, each item repesents an antimicrobial MIC column and is temporarily called `abx`.
+    -   `x <- str_trim(df[[abx]])` extracts the current `abx` column from the dataframe and removes any extra spaces from each observation.
+    -   `numeric_part <- suppressWarnings(as.numeric(str_extract(x, "[0-9]+\.?[0-9]*")))` creates a vector called `numeric_part` that extracts only the numeric portion from the observations in `x`.
+        -   `suppressWarnings( )` silents the warning messages when values cannot be converted numeric values (e.g. `abc`).
+            -   `(as.numeric( ))` converts the extracted values into a numeric variable type.
+                -   `str_extract()`extracts the numeric portion from each observation in the column.
+    -   `df[[paste0("cmic_", sub("mic_", "", abx))]] <- dplyr::case_when( )` dynamically creates a new column in the dataframe using the {dplyr} package. The new column name is generated by adding `cmic_` to the beginning and removing `"mic_"` from the original column name (e.g. **cmic\_~~mic\_~~amc** ➙ **cmic_amc**). The `case_when ( )` applies a series of conversion rules to the observations:
+        -   `is.na(x) ~ NA_real_,` if the orginal value is missing (`na`), return a missing numeric value (`na`).
+        -   `str_detect(x, "^\\s*(>|>=|≥)") ~ numeric_part * 2,` if any spaces before text (`^\\s*`) followed by `>` OR `>=` OR `≥` is **detected** in an observation, return the numeric value multiplied by 2.
+        -   `str_detect(x, "^\\s*(<|<=|≤)") ~ numeric_part,` if any spaces before text (`^\\s*`) followed by `<` OR `<=` OR `≤` is **detected** in an observation, return the numeric value.
+        -   `!is.na(numeric_part) ~ numeric_part,` if observation already contains a valid numeric value with no inequality symbols, return the numeric value unchanged.
+        -   `TRUE ~ NA_real_` Any remaining observations that do not match the previous conditions are returned as missing values (`na`).
+5.  **Return Statement** - `return(df)` specifies the final output in the function will return.
+6.  **Usage**
+    -   `ecoli_amr_data` is the assigned name for a new output (in this case, a dataframe).
+    -   `cmic_expected(ecoli_data)` is applying the function to the value `ecoli_data`.

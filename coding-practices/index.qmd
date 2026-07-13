@@ -1,0 +1,55 @@
+---
+title: "Recommended Coding Practices"
+---
+
+> **Sources for this section**
+>
+> R 4 Epidemiology (2025). *10 Coding best practices*.<https://www.r4epi.com/chapters/best_practices/best_practices?utm_source=chatgpt.com9>
+>
+> [Coding Best Practices and Guidelines for Better Code \| DataCamp](https://www.datacamp.com/tutorial/coding-best-practices-and-guidelines)
+>
+> R for Data Science (2023). *6 Workflow: scripts and projects*.<https://r4ds.hadley.nz/workflow-scripts.html>
+
+# Key Elements for Coding
+
+-   **Environment**: Defining where your files are imported from and exported to is important regardless of the statistical software used. It is highly recommended to work with *relative file paths*. This will be further discussed in the section **Preparing your R Project**.
+
+    -   **Absolute File Path** - as the name suggests, an absolute path points to the same location regardless of the working directory. It usually begins at the computer's home directory and the follows the same exact directory structure to a file. This can become an issue when sharing code with others, as the same path will not exist on another person's computer.
+
+        -   `C:\Users\SHILL\folder1\subfolder2\sub-subfolder3\stat materials\demo\fox\ohl_data.xlsx`
+
+    -   **Relative File Path** - also self-explanatory, a relative file path is defined in relation to the working directly. This makes sharing code more portable - if someone else copies the project with the same directory structure, the relative paths can still work.
+
+        -   `fox\ohl_data.xlsx`
+
+-   **Comment Your Code**: Providing comments to explain the *why* behind your code within a script is a great habit! Any text that appears after **\#** on a line is ignored by R, but provides valuable context for future self and colleagues about what the code is doing. You can also make sections withing your code to break your script into more manageable pieces.
+
+``` r
+# data cleaning ---------------------------------------     
+# rename species variables - less confusing  
+tidy_random_data <- random_data |>      
+  mutate(species = recode(species,
+                          "bro" = "broiler",  
+                          "cat" = "cattle", 
+                          "goa" = "goat"))
+```
+
+To create a header like "data cleaning", the shortcut is Ctl + Shift + R
+
+-   **Consistent Style**:
+
+    -   **Case Conventions and Naming** - a consistent casing convention should be used across all data frames, variables, and functions. Inconsistent casing can complicate data cleaning and analysis workflows. In addition, avoid spaces, symbols, and special characters. The naming of objects, data frames, functions, and variables should describe what it is. For standardization, snake_case with no capitalization is recommended.
+
+|   Example   |           Machine readable            |    Human readable    |
+|:-----------:|:-------------------------------------:|:--------------------:|
+|             | (delimit words with **-** or **\_** ) | (context for *what)* |
+| fig_model_3 |                   ✓                   |          ✓           |
+| fig-model-3 |                   ✓                   |          ✓           |
+| fig model 3 |                   ✗                   |          ✓           |
+|     fig     |                   ✓                   |          ✗           |
+
+-   **Syntax**: The goal when writing code is for it to be readable
+
+    -   **Commas** - always put a space after a comma.
+
+    -   **Parentheses** - don't put spaces inside or outside parentheses for function calls

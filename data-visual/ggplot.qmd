@@ -1,0 +1,150 @@
+---
+title: "ggplot"
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+```
+
+There are 3 required components:
+
+1.  Data - The data you want to plot.
+2.  Mapping (aesthetic) - Tell R what you want to plot.
+3.  Geometric representation - Tell R what you want to see in the plot (i.e points, lines, diamonds).
+
+To start, let's load our library and get a dataset.
+
+```{r}
+library(tidyverse)  
+
+data()  
+
+Orange
+```
+
+You're probably wonder... I thought we were using `ggplot2`. We are... but as mentioned in the introduction to R section, the tidyverse ecosytem is quite resourceful - and include `ggplot2` and for this section, it also has datasets. I chose **Orange**.
+
+Let's run the first two important components...
+
+# Data and Mapping
+
+```{r}
+ggplot(data = Orange,
+       mapping = aes(x = age, y = circumference))
+```
+
+You will notice that the plot appears but there's no values! The `mapping` function sets up your plot *canvas* (x and y axis) but we haven't defined what you want to see in your plot.
+
+# Geometric representation
+
+```{r}
+
+ggplot(data = Orange,        
+       mapping = aes(x = age, y = circumference)) +   
+  geom_point()
+```
+
+Ah! some points are generated 🥳 But let's add some customization...
+
+## Size of points
+
+```{r}
+ggplot(data = Orange,        
+       mapping = aes(x = age, y = circumference)) +   
+  geom_point(size = 3)
+```
+
+## Colour of points
+
+```{r}
+ggplot(data = Orange,        
+       mapping = aes(x = age, y = circumference)) +   
+  geom_point(size = 3, color = "orange")
+```
+
+## Add a line
+
+(i.e an additional geometric representation)
+
+```{r}
+ggplot(data = Orange,        
+       mapping = aes(x = age, y = circumference)) +   
+  geom_point(size = 3, color = "orange") +   
+  geom_line()
+```
+
+## Colour of line
+
+```{r}
+ggplot(data = Orange,        
+       mapping = aes(x = age, y = circumference)) +   
+  geom_point(size = 3, color = "orange") +  
+  geom_line(color = "darkgreen")
+```
+
+We can even specify colour by a categorical variable! By applying the colour in `mapping()`, both `geom_point()` and `geom_line()` will be customized.
+
+```{r}
+ggplot(data = Orange,        
+       mapping = aes(x = age, y = circumference, color = Tree)) +
+  geom_point() +   
+  geom_line()
+```
+
+Let's say we want to specify colours for **Tree** categories...
+
+We can do this 2 ways:
+
+**1. Hard coding**
+
+```{r}
+ggplot(data = Orange,        
+       mapping = aes(x = age, y = circumference, color = Tree)) + 
+  geom_point() +  
+  geom_line() +   
+  scale_color_manual(     
+    values = c(       
+      "1" = "#F5276C",      
+      "2" = "darkorange",      
+      "3" = "blue",       
+      "4" = "purple",       
+      "5" = "black" 
+      )  
+    )
+```
+
+**2. List**
+
+```{r}
+tree_cols <- c( 
+  "1" = "#F5276C", 
+  "2" = "darkorange", 
+  "3" = "blue", 
+  "4" = "purple",
+  "5" = "black" 
+  )  
+ggplot(data = Orange, 
+       mapping = aes(x = age, y = circumference, color = Tree)) +
+  geom_point() +   
+  geom_line() +  
+  scale_color_manual(values = tree_cols)
+```
+
+Creating a **List** is a far more reproducible. It allows you to apply that same list to other `ggplot()` and the code is visually less daunting.
+
+Now that we know how the important components work, let's simplify the code a bit. The function is smart and knows what to expect in what order so we can remove things!
+
+Let's remove `data`, `mapping`, `x`, and `y` ...
+
+```{r}
+ggplot(Orange,         
+       aes(age, circumference, color = Tree)) +   
+  geom_point() +   
+  geom_line() +   
+  scale_color_manual(values = tree_cols)
+```
+
+# Layers🚧
+
+This component is great for adding additional customization, including (but not limited to) trend lines, axis titles, legends, faceting (multiple plots by category), and other advanced formatting options.

@@ -1,0 +1,156 @@
+---
+title: "Differences between SAS and R"
+---
+
+> **Sources for this section**
+>
+> [SAS Intro 2021\| OFE](https://ofe.ecu.edu/wp-content/pv-uploads/sites/277/2021/05/SAS_intro_2021OFE.pdf)
+>
+> [How to Get Started with SAS: A Beginner's Guide to SAS Programming \| The Open Bracket](https://theopenbracket.com/how-to-get-started-with-sas-a-beginners-guide-to-sas-programming/)
+
+The majority of this document is based on coding in R. There are substantial differences between R and SAS that can affect how data is structured and the coding practices used. Below are some major differences in how each software handles data, along with key considerations to keep in mind when transitioning between the two.
+
+### Data Structure
+
++-------------------------------------+------------------------------------------------------+
+| SAS                                 | R                                                    |
++=====================================+======================================================+
+| -   Works with rectangular datasets | -   Works with many data structures                  |
+|                                     |                                                      |
+| -   One dataset at a time           |     -   Vectors                                      |
+|                                     |                                                      |
+|                                     |     -   Lists                                        |
+|                                     |                                                      |
+|                                     |     -   Data frames                                  |
+|                                     |                                                      |
+|                                     |     -   Tibbles                                      |
+|                                     |                                                      |
+|                                     | -   Columns can contain complex objects (e.g. lists) |
++-------------------------------------+------------------------------------------------------+
+
+### Variable Types
+
++---------------------------------------------------+-----------------------------+
+| SAS                                               | R                           |
++===================================================+=============================+
+| -   Numeric                                       | -   Numeric (double)        |
+|                                                   |                             |
+|     -   dates are special kinds of numeric values | -   Integer                 |
+|                                                   |                             |
+| -   Character                                     | -   Character               |
+|                                                   |                             |
+|                                                   | -   Logical                 |
+|                                                   |                             |
+|                                                   | -   Date-time (class based) |
++---------------------------------------------------+-----------------------------+
+
+### Case Sensitivity
+
++----------------------------------------------------------------------------+------------------------------------------------------------+
+| SAS                                                                        | R                                                          |
++============================================================================+============================================================+
+| -   Not case sensitive - can be uppercase, lowercase, or a mixture of both | -   Case sensitive - will read **B** and **b** differently |
++----------------------------------------------------------------------------+------------------------------------------------------------+
+
+### Naming Conventions
+
++----------------------------------------------------------------------+--------------------------------------------------------------------------------------+
+| SAS                                                                  | R                                                                                    |
++======================================================================+======================================================================================+
+| -   Must start with a letter or underscore ( **\_** )                | -   Must start with a letter or number                                               |
+|                                                                      |                                                                                      |
+| -   Cannot start with a number, contain special characters or blanks | -   Cannot start with an underscore ( **\_** ), contain special characters of blanks |
++----------------------------------------------------------------------+--------------------------------------------------------------------------------------+
+
+### Missing Values
+
++---------------------------------------------------------------+------------------------------------------------+
+| SAS                                                           | R                                              |
++===============================================================+================================================+
+| -   Missing character values are displayed as blanks          | -   Missing values are displayed as **\<NA\>** |
+|                                                               |                                                |
+| -   Missing numeric values are displayed as periods ( **.** ) |     -   Sensitive to how the machine reads     |
++---------------------------------------------------------------+------------------------------------------------+
+
+### Structure of Command
+
++---------------------------------------------------------------------+------------------------------------------------------------------------------+
+| SAS                                                                 | R                                                                            |
++=====================================================================+==============================================================================+
+| -   "statements"                                                    | -   "function"                                                               |
+|                                                                     |                                                                              |
+| -   Strung together with semicolon ( **;** )                        | -   Within a function, strung together with a comma ( **,** )                |
+|                                                                     |                                                                              |
+| -   Include "run" at the end of statement                           | -   Functions are strung together with a "pipe" ( **%\>%** or **\|\>** )     |
+|                                                                     |                                                                              |
+| -   One or more blanks or special characters used to separate words | -   No use of special characters                                             |
+|                                                                     |                                                                              |
+| -   Can begin and end in any column                                 | -   Order matters (e.g. **filter, then plot** rather than plot, then filter) |
+|                                                                     |                                                                              |
+|                                                                     | -   Use of parentheses **( )**                                               |
++---------------------------------------------------------------------+------------------------------------------------------------------------------+
+
+### Comments
+
++------------------+------------------------------------------------------------------+
+| SAS              | R                                                                |
++==================+==================================================================+
+| -   `/* text /*` | -   `# text`                                                     |
+|                  |                                                                  |
+| -   `* text ;`   | -   `# text ------------` for section headers (Ctrl + Shift + R) |
++------------------+------------------------------------------------------------------+
+
+### Environment
+
++--------------------------------+-------------------------------------+
+| SAS                            | R                                   |
++================================+=====================================+
+| -   Temporary library `work`   | -   Set working directory `setwd()` |
+|                                |                                     |
+| -   Assign a library `libname` | -   Project-level path `.Rproj`     |
++--------------------------------+-------------------------------------+
+
+### Example Code - Import Dataset
+
+| SAS |
+|-----|
+
+``` sas
+libname data_folder 'C:\Users\SHILL\folder1\subfolder2\sub-subfolder3\stat materials\demo\fox'  
+ACCESS=READONLY;run;  
+proc datasets lib=data_folder;  
+run;  
+Data new_name_data;  
+Set ohl_data;  
+run;
+```
+
+| R   |
+|-----|
+
+``` r
+setwd("C:/Users/SHILL/folder1/subfolder2/sub-subfolder3/stat materials/demo/fox")  
+library(openxlsx)  
+new_name_data <- read.xlsx("data_folder/ohl_data.xlsx")
+```
+
+### Example Code - Export Dataset
+
+| SAS |
+|-----|
+
+``` sas
+Proc export  
+Data = data_folder.new_name_data  
+Outfile = 'C:\Users\SHILL\folder1\subfolder2\sub-subfolder3\stat materials\demo\fox\new_name_data'  
+DBMS = dlm;  
+Run;
+```
+
+| R   |
+|-----|
+
+``` r
+library(writexl)  
+write_xlsx(new_name_data, "data_folder/new_name_data.xlsx")
+```

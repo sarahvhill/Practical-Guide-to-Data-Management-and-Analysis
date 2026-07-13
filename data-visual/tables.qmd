@@ -1,0 +1,89 @@
+---
+title: "Tables"
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+
+tree_cols <- c( 
+  "1" = "#F5276C", 
+  "2" = "darkorange", 
+  "3" = "blue", 
+  "4" = "purple",
+  "5" = "black" 
+  ) 
+```
+
+### 🚧
+
+There are several packages that generate aesthetically appealing tables.
+
+# {flextable}
+
+**Features:**
+
+-   Supports HTML, PDF, Word, and PowerPoint formats.
+
+```{r}
+```
+
+# {formatable}
+
+**Features:**
+
+-   Supports HTML formats.
+
+-   Weighted proportions with colour.
+
+-   Display numerical values as percentages.
+
+# {DT}
+
+**Features:**
+
+-   Supports interactive HTML formats.
+
+-   Stripe and hover appearance.
+
+-   Column Filters.
+
+-   Download button.
+
+# {kableExtra}
+
+**Features:**
+
+-   Supports HTML and PDF formats.
+
+-   Stripe and hover appearance
+
+# Tabset
+
+Creating tabs for outputs in HTML.
+
+**Simple**
+
+Let's say you are working on an R markdown report and want to organize your content.
+
+## Orange results
+
+::: panel-tabset
+### Plot
+
+```{r}
+ggplot(Orange,        
+       aes(age, circumference, color = Tree)) +   
+  geom_point() +   
+  geom_line() +  
+  scale_color_manual(values = tree_cols)
+```
+
+### Table
+
+```{r}
+head(Orange)
+```
+:::
+
+🚧

@@ -1,0 +1,7 @@
+---
+title: "Practical Guide to Data Management and Analysis"
+---
+
+We all have our own ways of managing data and running analyses, and that diversity is part of what makes our team strong. This guide is not meant to suggest that any one method is the “right” way. Rather, it is a collection of practices I’ve found helpful over the years, both as a way to document what I’ve learned and to hold myself accountable to clear, consistent workflows.
+
+In this document, you’ll find practical tips for using statistical software efficiently, avoiding common coding errors, and building workflows that are reproducible, transparent, and easy to share and collaborate on with colleagues.

@@ -1,0 +1,144 @@
+---
+title: "Data Exploration"
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+library(readxl) 
+data <- read_excel("data.xlsx")
+```
+
+There are quite a few ways to explore your data, and depending on your objectives, packages can increase the sophistication of your data exploration. However, we’ll start small and work our way toward more advanced approaches.
+
+# View the data
+
+**1. Within the Console**
+
+```{r}
+data
+```
+
+**2. In a separate tab**
+
+``` r
+view(data)
+```
+
+# Number of rows, columns, or both
+
+**Rows**
+
+```{r}
+nrow(data)
+```
+
+**Columns**
+
+```{r}
+ncol(data)
+```
+
+**Both**
+
+```{r}
+dim(data)
+```
+
+# Row and column names
+
+**Rows**
+
+```{r}
+rownames(data)
+```
+
+**Columns**
+
+```{r}
+colnames(data)
+```
+
+# View the first or last 6 rows
+
+**First 6**
+
+```{r}
+head(data)
+```
+
+**Last 6**
+
+```{r}
+tail(data)
+```
+
+# Structure and Summary of data
+
+**Structure**
+
+```{r}
+glimpse(data)
+```
+
+```{r}
+str(data)
+```
+
+**Summary**
+
+```{r}
+summary(data)
+```
+
+*Confession time*: on a day-to-day basis, other than the initial view of the dataset, I usually don’t use the commands above. Most of the time, I explore the data using a single function like `skim` below. However, it's helpful to try out these base R commands to become familiar with the many ways you can explore and understand your data.
+
+**More sophisticated version**
+
+```{r}
+#| message: false
+#| warning: false
+
+library(skimr)  
+
+skim(data)
+```
+
+The beauty of `skim` is that it provides a ton of useful information, including variable type, number of missing and unique observations, whether there are white spaces that could cause you issues further down the line, and descriptive stats such as the mean, standard deviation, and a little histogram. I'm all about efficiency!
+
+**Table**
+
+`table()` is a very simple base R command that I use all the time to quickly explore the data I'm working with. It allows you to review the count of observations in one or multiple columns.
+
+```{r}
+table(data$Team)  
+table(data$Team,data$Pet)
+```
+
+# Check and change variable type
+
+**Check all variables**
+
+```{r}
+sapply(data, class)
+```
+
+**Check one variable**
+
+```{r}
+class(data$Pet)
+```
+
+**Ask if it's a specific variable type**
+
+```{r}
+is.factor(data$Pet)
+```
+
+**Let's say we want to change this to be a factor (categorical)**
+
+```{r}
+data$Pet <- as.factor(data$Pet)  
+
+is.factor(data$Pet)
+```

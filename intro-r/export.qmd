@@ -1,0 +1,50 @@
+---
+title: "Export dataset"
+---
+
+```{r}
+#| include: false
+load("backend/back-datafiles.RData")
+```
+
+# xlsx
+
+```{r}
+library(writexl)  
+
+write_xlsx(add_rows_data, "data/clean_hockey_data.xlsx") 
+```
+
+# csv
+
+```{r}
+write.csv(add_rows_data, "data/clean_hockey_data.csv")
+```
+
+# R objects
+
+I want to bring attention to saving R objects, as they can be incredibly useful when working on long-term projects. Saving data as an `.xlsx` or `.csv` file can cause you to lose important information from your analysis workflow, such as variable types and other object attributes. Rather than re-running your entire cleaning and wrangling script every time you return to a project, you can save your current progress as an R object and quickly load it back into your environment later.
+
+1.  Save an R object
+
+```{r}
+save(add_rows_data, file = "data/clean_hockey_data.Rds")
+```
+
+2.  Save multiple R objects
+
+```{r}
+save(add_columns_data, add_rows_data, data, file = "data/datafiles.RData")
+```
+
+3.  Save the entire workspace
+
+```{r}
+save.image(file = "data/work_220526.RData")
+```
+
+In all 3 instances, you can `load()` the file by name and continue your coding adventures from where you last left things rather than starting from the beginning.
+
+```{r}
+load("data/clean_hockey_data.Rds") 
+```

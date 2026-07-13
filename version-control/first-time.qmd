@@ -1,0 +1,171 @@
+---
+title: "First-time User"
+---
+
+> **1.** Download:
+>
+> -   Git for Windows
+>
+> -   GitHub Desktop
+
+**2. Create an Account on** [GitHub](github.com)
+
+**3. Introduce Yourself to Git** [(Reference: Chapter 7)](https://happygitwithr.com/hello-git)
+
+-   Open R Studio
+
+-   In the Console, run:
+
+``` r
+install.packages("usethis")  
+
+library(usethis)  
+
+use_git_config(user.name = "your user name", user.email = "email_address.org")
+```
+
+**4. Personal Access Token for HTTPS** [(Reference: Chapter 9)](https://happygitwithr.com/https-pat)
+
+This proves that we are a GitHub user, who's allowed to do whatever we're asking it to do.
+
+-   In the Console, run:
+
+``` r
+usethis::create_github_token()
+```
+
+-   Your GitHub will pop-up. Ensure that "*repo*", "*user*", and "*workflow*" are selected and click "Generate token". Copy the generated PAT.
+
+``` r
+gitcreds::gitcreds_set()
+```
+
+-   Paste the generated PAT
+
+**5. Connect to GitHub** [(Reference: Chapter 11)](https://happygitwithr.com/push-pull-github)
+
+**Make a Repository on GitHub**
+
+-   Go to [GitHub](github.com) and make sure you're logged in
+
+-   Near "Repositories", click [**New**]{style="color:#33CC33;font-weight:bold;"} button
+
+-   How to fill this in:
+
+    -   Repository template: [No template]{style="color:red; "}
+
+    -   Repository name: [myrepo]{style="color:red; "}
+
+    -   Description: [Repository for testing my Git/GitHub setup]{style="color:red; "}
+
+    -   **Public**
+
+    -   Initialize this repository with: **Add a README file**
+
+-   Click [**Create repository**]{style="color:#33CC33;font-weight:bold;"} button
+
+-   Click [**\<\>Code**]{style="color:#33CC33;font-weight:bold;"} button
+
+-   Copy the HTTPS address
+
+**Clone the Repo to Your Local Computer**
+
+-   In the quadrant where the Console is, click *Terminal* tab
+
+    -   Make sure that you're not in a specific directory (ideally \~tmp)
+
+-   In the Terminal, run:
+
+```         
+git clone paste your https address  
+
+cd myrepo  
+
+git remote show origin
+```
+
+Should see something like this:
+
+```         
+~/tmp/myrepo % git remote show origin 
+* remote origin   
+Fetch URL: https://github.com/jennybc/myrepo.git   
+Push  URL: https://github.com/jennybc/myrepo.git   
+HEAD branch: main   
+Remote branch:     
+  main tracked   
+Local branch configured for 'git pull':     
+  main merges with remote main   
+  Local ref configured for 'git push':     
+    main pushes to main (up to date)
+```
+
+**Make Local Change, Commit, and Push**
+
+-   In the Terminal, run:
+
+```         
+echo "A line I wrote on my local computer " >> README.md  
+
+git status
+```
+
+Should see something like this:
+
+```         
+~/tmp/myrepo % echo "A line I wrote on my local computer" >> README.md  
+~/tmp/myrepo % git status 
+On branch main 
+Your branch is up to date with 'origin/main'.  
+Changes not staged for commit:   
+  (use "git add <file>..." to update what will be committed)   (use "git restore <file>..." to discard changes in working directory)        
+    modified:   README.md  
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+-   In the Terminal, run:
+
+```         
+git add README.md  
+
+git commit -m "A commit from my local computer"  
+
+git push
+```
+
+Should see something like this:
+
+```         
+~/tmp/myrepo % git add README.md  
+~/tmp/myrepo % git commit -m "A commit from my local computer" 
+[main e92528c] A commit from my local computer  
+ 1 file changed, 1 insertion(+)   
+ 
+~/tmp/myrepo % git push 
+Enumerating objects: 5, done. 
+Counting objects: 100% (5/5), done. 
+Delta compression using up to 12 threads 
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 327 bytes | 327.00 KiB/s, done. Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 
+To https://github.com/jennybc/myrepo.git    
+  31dcaef..e92528c  main -> main
+```
+
+You've concluded the set-up with GitHub! Woohoo 🎉 Now you can delete the repository.
+
+**6. Clean up**
+
+-   In the Terminal, run:
+
+```         
+cd..  
+rm -rf myrepo/
+```
+
+-   Go to [GitHub](github.com) and make sure you're logged-in
+
+    -   Go to **myrepo**'s landing page
+
+    -   Click "Settings"
+
+    -   Scroll down and click "Delete repository"

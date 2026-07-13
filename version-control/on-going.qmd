@@ -1,0 +1,124 @@
+---
+title: "On-going User"
+---
+
+> There are a few ways to navigate GitHub for on-going use:
+>
+> 1.  Create a new repository through [GitHub](github.com) – creating a new repository on the cloud
+> 2.  Clone a repository through GitHub Desktop – adding a repository that’s on the cloud onto your local computer
+> 3.  Create a new repository through GitHub Desktop – creating a new repository onto your local computer
+> 4.  Add an existing R project as new repository
+
+# 1. Create a new repository on [GitHub](github.com)
+
+-   Go to [GitHub](github.com) and make sure you're logged in
+
+-   Near "Repositories", click [**New**]{style="color:#33CC33;font-weight:bold;"} button
+
+-   How to fill this in:
+
+    -   Repository template: [No template]{style="color:red; "}
+
+    -   Repository name: [desired repository name]{style="color:red; "}
+
+    -   Description: [any information you want fellow users to know]{style="color:red; "}
+
+    -   **Private**
+
+    -   Initialize this repository with: **Add a README file**
+
+-   Click [**Create repository**]{style="color:#33CC33;font-weight:bold;"} button
+
+-   Click [**\<\>Code**]{style="color:#33CC33;font-weight:bold;"} button
+
+-   Copy the HTTPS address
+
+# 2. Clone a repository through GitHub Desktop
+
+-   Click **Current repository** ▼
+
+-   Click **Add** ▼
+
+-   Click **Clone a repository...**
+
+Now, there are 2 choices... you can either a) search through the existing repositories b) copy and paste the HTTPS address
+
+a.  In the **GitHub.com** tab:
+
+    -   select the existing repository
+
+    -   choose local path you'd like to save it to
+
+b.  In the **URL** tab:
+
+    -   select the existing repository
+
+    -   choose local path you'd like to save it to
+
+-   Click [**Clone**]{style="color:#99CCFF;font-weight:bold;"}
+
+# 3. Create a new repository through GitHub Desktop
+
+-   Click **Current repository** ▼
+
+-   Click **Add** ▼
+
+-   Click **Create a new repository..**
+
+<!-- -->
+
+-   How to fill this in:
+
+    -   Repository name: [desired repository name]{style="color:red; "}
+
+    -   Description: [any information you want fellow users to know]{style="color:red; "}
+
+    -   Local path: choose path you'd like to save it to
+
+    -   ![](images/clipboard-33796902.png)Initialize this repository with a **README**
+
+    -   Git ignore: ▼ scroll and select **R**
+
+    -   License: None
+
+    -   Click [**Create repository**]{style="color:#33CC33;font-weight:bold;"} button
+
+It will ask if you want to Publish repository, click [**Publish repository**]{style="color:#33CC33;font-weight:bold;"} button
+
+# 4. Add an existing R project as a new repository
+
+-   Open your .Rproj file
+
+-   At the top of your RStudio window, click “**Tools**”
+
+-   Click “**Version Control \> Project setup…**”
+
+-   A new window “**Project Options**” window will open with “**Git/SVN**”tab displayed
+
+    -   Change Version control systems (None)▼ to **Git**
+
+A pop up message:
+
+> Confirm Restart RStudio
+>
+> You’ll need to restart RStudio in order for this change to take effect. Do you want to do this now?
+
+Click “**Yes**”
+
+-   Go to GitHub Desktop
+
+-   Click **Current repository** ▼
+
+-   At the bottom under **Other**, you'll notice your project - click it
+
+It will ask if you want to Publish repository - click [**Publish repository**]{style="color:#33CC33;font-weight:bold;"} button
+
+-   How to fill this in:
+
+    -   Repository name: [desired repository name]{style="color:red; "}
+
+    -   Description: [any information you want fellow users to know]{style="color:red; "}
+
+    -   ![](images/clipboard-33796902.png)Keep this code private
+
+    -   Click [**Create repository**]{style="color:#33CC33;font-weight:bold;"} button
